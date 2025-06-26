@@ -1,0 +1,61 @@
+import React from 'react';
+import { Truck, Shield, Award, MapPin, Gift } from 'lucide-react';
+
+const Features = () => {
+  const features = [
+    {
+      icon: Truck,
+      title: "Free delivery",
+      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+    },
+    {
+      icon: Shield,
+      title: "100% secure payment",
+      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+    },
+    {
+      icon: Award,
+      title: "Quality guarantee",
+      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+    },
+    {
+      icon: MapPin,
+      title: "Guaranteed savings",
+      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+    },
+    {
+      icon: Gift,
+      title: "Daily offers",
+      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+    }
+  ];
+
+  return (
+    <section className="py-16">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+          {features.map((feature, index) => {
+            const IconComponent = feature.icon;
+            return (
+              <div key={index} className="text-center lg:text-left">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center">
+                      <IconComponent size={24} className="text-dark" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h5 className="font-semibold text-dark mb-2">{feature.title}</h5>
+                    <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Features;

@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add to your global CSS */
+.min-h-400 {
+    min-height: 400px;
+  }
+  
+  .group:hover .group-hover\:bg-gray-200 {
+    background-color: #edf2f7;
+  }
+  
+  .transition-colors {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
