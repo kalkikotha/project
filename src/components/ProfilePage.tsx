@@ -1,25 +1,30 @@
-import React, { useState, useRef } from 'react';
-import { useAuth } from './AuthContext';
-import { User, Mail, Phone, Gift, Edit, Check, X, Coins } from 'lucide-react';
+import React, { useState, useRef } from "react";
+import { useAuth } from "./AuthContext";
+import { User, Mail, Phone, Gift, Edit, Check, X, Coins } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const { user, logout, updateProfile } = useAuth();
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingPhone, setIsEditingPhone] = useState(false);
   const [isEditingAvatar, setIsEditingAvatar] = useState(false);
-  const [editedName, setEditedName] = useState(user?.fullName || '');
-  const [editedPhone, setEditedPhone] = useState(user?.phone || '');
+  const [editedName, setEditedName] = useState(user?.username || "");
+  const [editedPhone, setEditedPhone] = useState(user?.phone || undefined);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || '');
+  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || "");
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const navigate = useNavigate();
   if (!user) {
-    return <div className="text-center py-12">Please log in to view your profile</div>;
+    return (
+      <div className="text-center py-12">
+        Please log in to view your profile
+      </div>
+    );
   }
 
   const handleNameEdit = () => {
     if (isEditingName) {
-      updateProfile({ fullName: editedName });
+      updateProfile({ username: editedName });
     }
     setIsEditingName(!isEditingName);
   };
@@ -28,7 +33,7 @@ const ProfilePage = () => {
     if (isEditingPhone) {
       updateProfile({ phone: editedPhone });
     } else {
-      setEditedPhone(user.phone || '');
+      setEditedPhone(user.phone);
     }
     setIsEditingPhone(!isEditingPhone);
   };
@@ -54,7 +59,7 @@ const ProfilePage = () => {
         <div className="bg-gradient-to-r from-primary-100 to-primary-200 p-6 text-center">
           <h1 className="text-2xl font-bold text-white">My Profile</h1>
         </div>
-        
+
         {/* Profile Content */}
         <div className="p-6 md:p-8">
           {/* Avatar Section */}
@@ -63,7 +68,7 @@ const ProfilePage = () => {
               <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
                 <img
                   src={avatarPreview}
-                  alt={user.fullName}
+                  alt={user.username}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -73,7 +78,7 @@ const ProfilePage = () => {
               >
                 <Edit size={16} />
               </button>
-              
+
               {isEditingAvatar && (
                 <div className="absolute inset-0 bg-black/50 rounded-full flex flex-col items-center justify-center space-y-2">
                   <button
@@ -99,7 +104,7 @@ const ProfilePage = () => {
               )}
             </div>
           </div>
-          
+
           {/* User Info */}
           <div className="space-y-6">
             {/* Name */}
@@ -134,10 +139,12 @@ const ProfilePage = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
               ) : (
-                <h2 className="text-xl font-semibold text-dark">{user.fullName}</h2>
+                <h2 className="text-xl font-semibold text-dark">
+                  {user.username}
+                </h2>
               )}
             </div>
-            
+
             {/* Email */}
             <div className="bg-gray-50 rounded-xl p-4">
               <div className="flex items-center text-gray-600 mb-2">
@@ -146,7 +153,7 @@ const ProfilePage = () => {
               </div>
               <p className="text-dark">{user.email}</p>
             </div>
-            
+
             {/* Phone */}
             <div className="bg-gray-50 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
@@ -174,16 +181,16 @@ const ProfilePage = () => {
               {isEditingPhone ? (
                 <input
                   type="tel"
-                  value={editedPhone}
+                  value={String(editedPhone)}
                   onChange={(e) => setEditedPhone(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   placeholder="Add phone number"
                 />
               ) : (
-                <p className="text-dark">{user.phone || 'Not provided'}</p>
+                <p className="text-dark">{"Not provided"}</p>
               )}
             </div>
-            
+
             {/* Credits */}
             <div className="bg-gray-50 rounded-xl p-4">
               <div className="flex items-center text-gray-600 mb-2">
@@ -191,13 +198,15 @@ const ProfilePage = () => {
                 <span className="text-sm font-medium">Your Credits</span>
               </div>
               <div className="flex items-center">
-                <span className="text-2xl font-bold text-dark mr-2">{user.credits}</span>
+                <span className="text-2xl font-bold text-dark mr-2">
+                  {user.credits}
+                </span>
                 <span className="text-primary bg-primary-50 px-2 py-1 rounded-full text-xs">
                   Wethenticate COINS
                 </span>
               </div>
             </div>
-            
+
             {/* Referral */}
             <div className="bg-gray-50 rounded-xl p-4">
               <div className="flex items-center text-gray-600 mb-2">
@@ -208,7 +217,8 @@ const ProfilePage = () => {
                 <div className="mb-2 sm:mb-0">
                   <p className="text-dark font-medium">{user.referralCode}</p>
                   <p className="text-gray-600 text-sm">
-                    Share this code with friends and earn 50 credits when they sign up!
+                    Share this code with friends and earn 50 credits when they
+                    sign up!
                   </p>
                 </div>
                 <button className="bg-primary-50 text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-100 transition-colors">
@@ -216,11 +226,14 @@ const ProfilePage = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Logout Button */}
             <div className="pt-4">
               <button
-                onClick={logout}
+                onClick={() => {
+                  logout();
+                  navigate("/");
+                }}
                 className="w-full bg-gray-100 text-gray-600 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
               >
                 Log Out

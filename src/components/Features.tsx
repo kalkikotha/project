@@ -1,39 +1,43 @@
-import React from 'react';
-import { Truck, Shield, Award, MapPin, Gift } from 'lucide-react';
+import React from "react";
+import { Truck, Shield, Award, MapPin, Gift } from "lucide-react";
 
 const Features = () => {
   const features = [
-    {
-      icon: Truck,
-      title: "Free delivery",
-      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
-    },
+    // {
+    //   icon: Truck,
+    //   title: "Free delivery",
+    //   description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+    // },
     {
       icon: Shield,
-      title: "100% secure payment",
-      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+      title: "Lab-Verified Results",
+      description:
+        "All test data comes from certified laboratories with strict quality control standards.",
     },
     {
       icon: Award,
-      title: "Quality guarantee",
-      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+      title: "Scientific Accuracy",
+      description:
+        "Independent testing ensures unbiased, reliable comparisons of cosmetic formulations.",
     },
     {
       icon: MapPin,
-      title: "Guaranteed savings",
-      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
+      title: "Ingredient Transparency",
+      description:
+        "Complete breakdown of components with verified test results for each product.",
     },
     {
       icon: Gift,
-      title: "Daily offers",
-      description: "Lorem ipsum dolor sit amet, consectetur adipi elit."
-    }
+      title: "Expert Recommendations",
+      description:
+        "Data-driven suggestions based on clinical test outcomes for your skin type.",
+    },
   ];
 
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
@@ -45,8 +49,12 @@ const Features = () => {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h5 className="font-semibold text-dark mb-2">{feature.title}</h5>
-                    <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+                    <h5 className="font-semibold text-dark mb-2">
+                      {feature.title}
+                    </h5>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
                 </div>
               </div>

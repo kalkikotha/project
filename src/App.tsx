@@ -3,12 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
-import CategorySection from "./components/CategorySection";
 import TrendingProducts from "./components/TrendingProducts";
-import DiscountSection from "./archieve/DiscountSection";
-import JustArrived from "./archieve/JustArrived";
-import BlogSection from "./archieve/BlogSection";
-import AppSection from "./archieve/AppSection";
 import SearchTags from "./components/SearchTags";
 import Features from "./components/Features";
 import Footer from "./components/Footer";
@@ -18,6 +13,7 @@ import ProfilePage from "./components/ProfilePage";
 import ProductsPage from "./components/ProductsPage";
 import ProductDetailPage from "./components/ProductDetailPage";
 import ComparePage from "./components/ComparePage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -27,7 +23,7 @@ function App() {
   const MainContent = () => (
     <>
       <HeroSection />
-      <CategorySection />
+      {/* <CategorySection /> */}
       {/* <BrandSection /> */}
       <TrendingProducts />
       {/* <DiscountSection /> */}
@@ -76,6 +72,10 @@ function App() {
                         setShowLogin(false);
                         setShowSignup(true);
                       }}
+                      onSucess={() => {
+                        setShowLogin(false);
+                        setShowSignup(false);
+                      }}
                     />
                   )}
                   {showSignup && (
@@ -84,17 +84,22 @@ function App() {
                         setShowSignup(false);
                         setShowLogin(true);
                       }}
+                      onSucess={() => {
+                        setShowLogin(false);
+                        setShowSignup(false);
+                      }}
                     />
                   )}
                 </div>
               </div>
             )}
-
+            <ScrollToTop />
             <Routes>
               <Route
                 path="/"
                 element={showProfile ? <ProfilePage /> : <MainContent />}
               />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="/products/:category" element={<ProductsPage />} />
               <Route
                 path="/products/:category/:productId"

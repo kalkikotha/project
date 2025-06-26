@@ -1,11 +1,20 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Heart, BarChart2, ShoppingCart, ChevronLeft } from "lucide-react";
+import { Heart, BarChart2, ChevronLeft } from "lucide-react";
 import { productsData } from "./data";
+import { useAuth } from "./AuthContext";
+import Modal from "./Modal";
+import "./ProductDetailPage.css";
+import dropdown from "../assets/dropdown.svg";
+import pdfIcon from "../assets/pdfIcon.svg";
 
 const ProductDetailPage = () => {
   const { category, productId } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
+  const { user, compareItems, addToCompare, removeFromCompare } = useAuth();
+  const isInCompare = compareItems.some(
+    (item) => item.id == productId && item.category == category
+  );
 
   // Find the current product
   const currentProduct = productsData[category]?.find(
@@ -19,15 +28,90 @@ const ProductDetailPage = () => {
 
   if (!currentProduct) return <div>Product not found</div>;
 
+  const [ratingExpanded1, setRatingExpanded1] = useState(false);
+  const [ratingExpanded2, setRatingExpanded2] = useState(false);
+  const [ratingValue1] = useState(5.53); // Example rating value out of 10
+  const [ratingValue2] = useState(10); // Example rating value out of 10
+
+  const toggleRatingDescription1 = () => {
+    setRatingExpanded1(!ratingExpanded1);
+  };
+
+  const toggleRatingDescription2 = () => {
+    setRatingExpanded2(!ratingExpanded2);
+  };
+
+  const handleCompareClick = (e) => {
+    e.preventDefault();
+    if (isInCompare) {
+      removeFromCompare(productId, category);
+    } else {
+      addToCompare({
+        id: currentProduct.productId,
+        name: currentProduct.name,
+        image: currentProduct.image,
+        category: currentProduct.category,
+      });
+    }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState("");
+
+  const getDoc = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_API}/doc`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: user?.username,
+            email: user?.email,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        setError("Failed to fetch PDF");
+        setTimeout(() => setError(""), 10000); // Clear the error after 10 seconds
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const pdfBytes = await response.arrayBuffer();
+
+      // Create a Blob from the PDF bytes
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+
+      // Create a Blob URL
+      const url = URL.createObjectURL(blob);
+
+      // Open the Blob URL in a new tab
+      // window.open(url, "_blank");
+      setPdfUrl(url);
+      setIsModalOpen(true);
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to fetch PDF:", error);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   // Generate multiple image URLs (in a real app these would be actual product images)
   const productImages = [
     currentProduct.image,
-    `https://via.placeholder.com/600x600?text=${encodeURIComponent(
-      currentProduct.name
-    )}+1`,
-    `https://via.placeholder.com/600x600?text=${encodeURIComponent(
-      currentProduct.name
-    )}+2`,
+    "https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dml0YW1pbiUyMGMlMjBzZXJ1bXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60", // Vitamin C serum (orange-toned bottle)
+    ,
+    "https://images.pexels.com/photos/4202924/pexels-photo-4202924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", // Hyaluronic serum (clear bottle with dropper)
+    ,
   ];
 
   return (
@@ -114,23 +198,169 @@ const ProductDetailPage = () => {
           </div>
 
           <div className="flex flex-wrap gap-4 pt-4">
-            <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
-              <BarChart2 size={18} />
-              <span>Add to Compare</span>
+            <button
+              onClick={handleCompareClick}
+              className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+            >
+              <BarChart2 size={14} />{" "}
+              {isInCompare ? "Remove from Compare" : "Add to Compare"}
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
-              <Heart size={18} />
-              <span>Add to Wishlist</span>
-            </button>
-            <button className="flex-1 bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark flex items-center justify-center gap-2">
-              <ShoppingCart size={20} />
-              <span>Add to Cart</span>
+            {/* <button className="flex items-center gap-1 text-xs text-gray-600 hover:text-primary transition-colors">
+                <Heart size={14} /> Wishlist
+              </button>
+              <button className="ml-auto flex items-center gap-1 bg-primary text-white px-3 py-2 rounded-md text-sm hover:bg-primary-dark transition-colors">
+                <ShoppingCart size={16} /> Add to Cart
+              </button> */}
+            <button className=" flex items-center gap-1 bg-primary text-white px-3 py-2 rounded-md text-sm hover:bg-primary-dark transition-colors">
+              <Heart size={14} /> Wishlist
             </button>
           </div>
         </div>
       </section>
 
-      {/* Section 2: Compare Products */}
+      {/* section 2 */}
+      <div className="bg-white max-w-4xl flex flex-col mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          RATING DETAILS
+        </h2>
+        <div className="flex flex-col gap-4">
+          {/* Label Accuracy Score */}
+          <div className="flex flex-col items-center rounded-lg cursor-pointer bg-gray-100 p-4">
+            <div className="flex w-full">
+              <div className="flex flex-col flex-1 items-center gap-1">
+                <div className="flex items-center w-full justify-between">
+                  <div className="text-gray-800 text-sm font-medium">
+                    Label Accuracy Score
+                  </div>
+                  <div className="w-9 pl-1 text-right text-sm font-semibold text-gray-800">
+                    {ratingValue1}
+                  </div>
+                </div>
+                <div
+                  className="w-full h-5 bg-gray-300 cursor-pointer relative"
+                  onClick={toggleRatingDescription1}
+                >
+                  <div
+                    className="h-full bg-teal-500"
+                    style={{ width: `${(ratingValue1 / 10) * 100}%` }}
+                  />
+                </div>
+                {ratingExpanded1 && (
+                  <div className="mt-2 w-full border border-gray-300 rounded-md p-3 text-gray-700 text-base leading-6">
+                    Label Accuracy Score (LAS) is calculated on a 0-10 scale -
+                    higher is better. It is a measure of how accurately a
+                    product's nutritional label matches what Unbox Health found
+                    in lab tests. This product's LAS was calculated using a
+                    weighted average of the following derived values - DHA
+                    Accuracy: 1.00, EPA Accuracy: 0.11.
+                  </div>
+                )}
+              </div>
+              <div className="pl-4 pt-4">
+                <img
+                  alt="collapsible"
+                  loading="lazy"
+                  width="13"
+                  height="22"
+                  src={dropdown}
+                  style={{
+                    color: "transparent",
+                    transform: `rotate(${
+                      ratingExpanded1 ? "90deg" : "-90deg"
+                    })`,
+                    height: "14px",
+                  }}
+                  className="cursor-pointer"
+                  onClick={toggleRatingDescription1}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Non-Toxicity Score */}
+          <div className="flex flex-col items-center rounded-lg cursor-pointer bg-gray-100 p-4">
+            <div className="flex w-full">
+              <div className="flex flex-col flex-1 items-center gap-1">
+                <div className="flex items-center w-full justify-between">
+                  <div className="text-gray-800 text-sm font-medium">
+                    Non-Toxicity Score
+                  </div>
+                  <div className="w-9 pl-1 text-right text-sm font-semibold text-gray-800">
+                    {ratingValue2}
+                  </div>
+                </div>
+                <div
+                  className="w-full h-5 bg-gray-300 cursor-pointer relative"
+                  onClick={toggleRatingDescription2}
+                >
+                  <div
+                    className="h-full bg-teal-500"
+                    style={{ width: `${(ratingValue2 / 10) * 100}%` }}
+                  />
+                </div>
+                {ratingExpanded2 && (
+                  <div className="mt-2 w-full border border-gray-300 rounded-md p-3 text-gray-700 text-base leading-6">
+                    Label Accuracy Score (LAS) is calculated on a 0-10 scale -
+                    higher is better. It is a measure of how accurately a
+                    product's nutritional label matches what Unbox Health found
+                    in lab tests. This product's LAS was calculated using a
+                    weighted average of the following derived values - DHA
+                    Accuracy: 1.00, EPA Accuracy: 0.11.
+                  </div>
+                )}
+              </div>
+              <div className="pl-4 pt-4">
+                <img
+                  alt="collapsible"
+                  loading="lazy"
+                  width="13"
+                  height="22"
+                  src={dropdown}
+                  style={{
+                    color: "transparent",
+                    transform: `rotate(${
+                      ratingExpanded1 ? "90deg" : "-90deg"
+                    })`,
+                    height: "14px",
+                  }}
+                  className="cursor-pointer"
+                  onClick={toggleRatingDescription2}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* section 3 */}
+      <section>
+        <div className="mb-5">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            LAB TEST RESULTS & METHODOLOGY
+          </h2>
+          <a
+            rel="noopener noreferrer"
+            onClick={getDoc}
+            className="flex items-center border border-dashed border-gray-400 rounded-md px-4 py-2 cursor-pointer hover:bg-gray-100 w-fit gap-2"
+          >
+            {/* PDF icon - use emoji or SVG */}
+            <img src={pdfIcon} alt="pdfIcon" width="52px" />
+
+            {/* File name */}
+            <span className="text-gray-800 font-medium">
+              Lab_report_{currentProduct.name}.pdf
+            </span>
+          </a>
+
+          {loading && "Fetching the report..."}
+          {error && <span>{error}</span>}
+        </div>
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={closeModal} content={pdfUrl} />
+        )}
+      </section>
+
+      {/* Section 4: Compare Products */}
       <section className="border-t pt-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">
           Compare Similar {category}

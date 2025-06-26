@@ -58,14 +58,14 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h5 className="font-semibold text-dark mb-4">Company</h5>
+            <h5 className="font-semibold text-dark mb-4">About</h5>
             <ul className="space-y-2">
               <li>
                 <a
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  About us
+                  Our Testing Methods
                 </a>
               </li>
               <li>
@@ -73,7 +73,7 @@ const Footer = () => {
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  Conditions
+                  Research Team
                 </a>
               </li>
               <li>
@@ -81,46 +81,22 @@ const Footer = () => {
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  Our Journals
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Affiliate Programme
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Ultras Press
+                  Data Integrity
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Customer Service */}
+          {/* Resources */}
           <div>
-            <h5 className="font-semibold text-dark mb-4">Customer Service</h5>
+            <h5 className="font-semibold text-dark mb-4">Resources</h5>
             <ul className="space-y-2">
               <li>
                 <a
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  FAQ
+                  Ingredient Glossary
                 </a>
               </li>
               <li>
@@ -128,7 +104,7 @@ const Footer = () => {
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  Contact
+                  Safety Ratings
                 </a>
               </li>
               <li>
@@ -136,46 +112,22 @@ const Footer = () => {
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Returns & Refunds
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Cookie Guidelines
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Delivery Information
+                  Testing Methodology
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Contact */}
           <div>
-            <h5 className="font-semibold text-dark mb-4">Support</h5>
+            <h5 className="font-semibold text-dark mb-4">Contact</h5>
             <ul className="space-y-2">
               <li>
                 <a
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  Help Center
+                  Submit Product
                 </a>
               </li>
               <li>
@@ -183,7 +135,7 @@ const Footer = () => {
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  Live Chat
+                  Research Partnerships
                 </a>
               </li>
               <li>
@@ -191,31 +143,7 @@ const Footer = () => {
                   href="#"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  Order Status
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Shipping Info
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Size Guide
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  Track Order
+                  Data Requests
                 </a>
               </li>
             </ul>

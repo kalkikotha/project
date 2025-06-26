@@ -1,0 +1,62 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%; /* Take up full width */
+    height: 100%; /* Take up full height */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    position: relative;
+    color: black;
+    overflow-y: auto; /* Allow scrolling if content is too long */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    max-width: 956px;
+}
+
+.close-button {
+    position: absolute; /* Keep the button fixed within the modal */
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.7);
+    z-index: 1001; /* Ensure it appears above other content */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    .close-button {
+        font-size: 20px; /* Adjust close button size */
+    }
+}
+
+.modal-content .rpv-core__text-layer-text {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}

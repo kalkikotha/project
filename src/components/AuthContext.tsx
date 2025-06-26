@@ -1,11 +1,20 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import axios from "axios";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface User {
-  fullName: string;
+  username: string;
   email: string;
   phone?: string;
-  credits: number;
-  referralCode: string;
+  subscriptionActive: 0 | 1;
+  credits: string;
+  referralCode?: string;
+  referrerCode?: string;
   avatar?: string;
 }
 
@@ -14,19 +23,43 @@ interface Product {
   name: string;
   image: string;
   category: string;
+  nutrition?: {
+    "MUFA+PUFA"?: string;
+    "Saturated Fat"?: string;
+    "Trans Fat"?: string;
+    "Butryic Acid"?: string;
+    "Caproic Acid"?: string;
+  };
   // Add other product properties you need
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (
+    email: string,
+    password: string
+  ) => Promise<{
+    success: boolean;
+    message?: string;
+    user?: any;
+    token?: string;
+  }>;
   signup: (userData: {
-    fullName: string;
+    username: string;
     email: string;
     password: string;
-    phone?: string;
-    referralCode?: string;
-  }) => Promise<void>;
+    phone: string;
+    otp: string;
+    subscriptionActive: 0 | 1;
+    credits: string;
+    referrerCode: string;
+    avatar?: string;
+  }) => Promise<{
+    success: boolean;
+    message?: string;
+    user?: any;
+    token?: string;
+  }>;
   logout: () => void;
   updateProfile: (updatedUser: Partial<User>) => void;
   compareItems: Product[];
@@ -40,7 +73,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [compareItems, setCompareItems] = useState<Product[]>([]);
-
   const addToCompare = (product: Product) => {
     setCompareItems((prev) => {
       // Prevent duplicates
@@ -51,56 +83,166 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const removeFromCompare = (productId: string) => {
-    setCompareItems((prev) => prev.filter((item) => item.id !== productId));
+  const removeFromCompare = (productId: string, category: string) => {
+    setCompareItems((prev) =>
+      prev.filter((item) => item.category != category && item.id !== productId)
+    );
   };
 
   const clearCompare = () => {
     setCompareItems([]);
   };
-  const login = async (email: string, password: string) => {
+
+  useEffect(() => {
+    if (!user) {
+      try {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error("Failed to parse user from localStorage", error);
+      }
+    }
+  }, [user]);
+
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<{
+    success: boolean;
+    message?: string;
+    user?: any;
+    token?: string;
+  }> => {
     // In a real app, you would call your API here
     console.log("Login attempt with:", email, password);
     // Mock user for demo
-    setUser({
-      fullName: "John Doe",
-      email,
-      phone: "+1234567890",
-      credits: 100,
-      referralCode: "Wethenticate123",
-      avatar: "https://randomuser.me/api/portraits/men/1.jpg",
-    });
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_API}/signin`,
+        {
+          email: email,
+          password: password,
+        }
+      );
+      const userData = response.data;
+      if (userData.success) {
+        console.log(userData);
+        const userinfo = userData.user;
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            username: userinfo.username,
+            email: userinfo.email,
+            phone: userinfo?.phone,
+            subscriptionActive: userinfo?.subscriptionActive,
+            credits: userinfo.credits,
+            referralCode: userinfo?.referralCode,
+            avatar: userData?.avatar,
+          })
+        );
+        localStorage.setItem("token", JSON.stringify(userData.token));
+        setUser({
+          username: userinfo.username,
+          email: userinfo.email,
+          phone: userinfo?.phone,
+          subscriptionActive: userinfo?.subscriptionActive,
+          credits: userinfo.credits,
+          referralCode: userinfo?.referralCode,
+          avatar: userData?.avatar,
+        });
+      }
+      return userData;
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      return {
+        success: false,
+        message: `"Error fetching user details:", ${error}`,
+      };
+    }
   };
 
   const signup = async (userData: {
-    fullName: string;
+    username: string;
     email: string;
     password: string;
-    phone?: string;
-    referralCode?: string;
+    phone: string;
+    otp: string;
+    subscriptionActive: 0 | 1;
+    credits: string;
+    referrerCode: string;
+    avatar?: string;
   }) => {
     // In a real app, you would call your API here
     console.log("Signup with:", userData);
     // Mock user creation for demo
-    setUser({
-      fullName: userData.fullName,
+
+    const payload = {
+      username: userData.username,
       email: userData.email,
+      password: userData.password,
       phone: userData.phone,
-      credits: 100, // Default credits
+      otp: userData.otp,
+      subscriptionActive: userData.subscriptionActive,
+      credits: userData.credits,
       referralCode: generateReferralCode(),
+      referrerCode: userData.referrerCode,
       avatar: `https://randomuser.me/api/portraits/${
         Math.random() > 0.5 ? "men" : "women"
       }/${Math.floor(Math.random() * 50)}.jpg`,
-    });
+    };
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_API}/signup`,
+        payload
+      );
+      if (response.data.success) {
+        console.log(response.data);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            username: userData.username,
+            email: userData.email,
+            phone: userData.phone,
+            subscriptionActive: userData.subscriptionActive,
+            credits: userData.credits,
+            referralCode: generateReferralCode(),
+            referrerCode: userData.referrerCode,
+            avatar: `https://randomuser.me/api/portraits/${
+              Math.random() > 0.5 ? "men" : "women"
+            }/${Math.floor(Math.random() * 50)}.jpg`,
+          })
+        );
+
+        setUser({
+          username: userData.username,
+          email: userData.email,
+          phone: userData.phone,
+          subscriptionActive: userData.subscriptionActive,
+          credits: userData.credits,
+          referralCode: generateReferralCode(),
+          referrerCode: userData.referrerCode,
+          avatar: `https://randomuser.me/api/portraits/${
+            Math.random() > 0.5 ? "men" : "women"
+          }/${Math.floor(Math.random() * 50)}.jpg`,
+        });
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Error signing up:", error);
+    }
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.setItem("user", JSON.stringify({}));
   };
 
   const updateProfile = (updatedUser: Partial<User>) => {
     if (user) {
       setUser({ ...user, ...updatedUser });
+      localStorage.setItem("user", JSON.stringify({ ...user, ...updatedUser }));
     }
   };
 
