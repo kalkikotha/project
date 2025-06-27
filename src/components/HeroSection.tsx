@@ -9,8 +9,7 @@ const HeroSection = () => {
     {
       category: "Premium Skincare",
       title: "Clinical-Grade Serums",
-      description:
-        "Targeted treatments for brightening, hydration & anti-aging",
+      description: "Targeted treatments for brightening, hydration & anti-aging",
       image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b",
       buttonText: "Explore Serums",
       categoryType: "Serums",
@@ -19,8 +18,7 @@ const HeroSection = () => {
       category: "Daily Essentials",
       title: "Hydrating Lotions",
       description: "Lightweight formulas for all skin types & needs",
-      image:
-        "https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg",
+      image: "https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg",
       buttonText: "Explore Lotions",
       categoryType: "Lotions",
     },
@@ -66,38 +64,33 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="py-12 ">
-      <div className="container mx-auto ">
-        {/* Main Carousel */}
+    <section className="py-4 bg-gradient-to-br from-gradient-hero-start to-gradient-hero-end">
+      <div className="container mx-auto">
         <div className="mb-16">
-          <div className="relative bg-white rounded-3xl overflow-hidden min-h-[500px] shadow-lg">
+          <div className="relative bg-bg-DEFAULT rounded-3xl overflow-hidden min-h-[500px] shadow-lg">
             <div className="relative h-[800px] lg:h-[500px]">
-              {" "}
-              {/* Fix height here */}
               {slides.map((slide, index) => (
                 <div
                   key={index}
                   className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center ${
-                    index === currentSlide
-                      ? "opacity-100 z-10"
-                      : "opacity-0 z-0"
+                    index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
                   }`}
                 >
                   <div className="flex flex-col lg:flex-row items-center justify-center h-full w-full">
                     {/* Content Section */}
                     <div className="w-full lg:w-1/2 h-1/2 lg:h-full p-8 lg:p-20 flex flex-col justify-center">
-                      <div className="text-primary text-lg font-medium mb-4">
+                      <div className="text-brand-DEFAULT text-lg font-medium mb-4">
                         {slide.category}
                       </div>
-                      <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                      <h1 className="text-4xl lg:text-5xl font-bold text-text-primary mb-6 leading-tight">
                         {slide.title}
                       </h1>
-                      <p className="text-gray-600 mb-8 text-lg">
+                      <p className="text-text-secondary mb-8 text-lg">
                         {slide.description}
                       </p>
                       <button
                         onClick={() => navigate(`/products/${slide.categoryType}`)}
-                        className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-dark transition-all duration-300 transform hover:scale-105 w-fit"
+                        className="bg-brand-light text-text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-dark transition-all duration-300 transform hover:scale-105 w-fit"
                       >
                         {slide.buttonText}
                       </button>
@@ -119,15 +112,15 @@ const HeroSection = () => {
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-90 hover:bg-opacity-100 p-3 rounded-full shadow-lg transition-all duration-200 z-20"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-bg-DEFAULT bg-opacity-90 hover:bg-opacity-100 p-3 rounded-full shadow-lg transition-all duration-200 z-20"
             >
-              <ChevronLeft size={24} className="text-gray-800" />
+              <ChevronLeft size={24} className="text-text-primary" />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-90 hover:bg-opacity-100 p-3 rounded-full shadow-lg transition-all duration-200 z-20"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-bg-DEFAULT bg-opacity-90 hover:bg-opacity-100 p-3 rounded-full shadow-lg transition-all duration-200 z-20"
             >
-              <ChevronRight size={24} className="text-gray-800" />
+              <ChevronRight size={24} className="text-text-primary" />
             </button>
 
             {/* Pagination Dots */}
@@ -137,7 +130,7 @@ const HeroSection = () => {
                   key={index}
                   onClick={() => setCurrentSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                    index === currentSlide ? "bg-primary" : "bg-gray-300"
+                    index === currentSlide ? "bg-brand-DEFAULT" : "bg-ui-gray"
                   }`}
                 />
               ))}

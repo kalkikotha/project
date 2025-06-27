@@ -1,9 +1,8 @@
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-
-import { categories } from "./data";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import { productsData } from "./data";
+import { categories } from "./data";
 
 const CategorySection = () => {
   const scrollContainerRef = useRef(null);
@@ -28,16 +27,16 @@ const CategorySection = () => {
 
   return (
     <section className="py-6 overflow-hidden bg-transparent">
-      <div className="container mx-auto px-12 ">
+      <div className="container mx-auto px-12">
         <div className="flex flex-wrap justify-between items-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-heading font-bold text-dark">
+          <h2 className="text-3xl lg:text-4xl font-heading font-bold text-text-primary">
             Our Skincare Categories
           </h2>
 
           <div className="flex items-center gap-4">
             <a
               href="#"
-              className="text-gray-600 hover:text-primary transition-colors font-medium"
+              className="text-text-secondary hover:text-brand-DEFAULT transition-colors font-medium"
             >
               View All Categories{" "}
               <ArrowRight className="inline ml-1" size={16} />
@@ -45,13 +44,13 @@ const CategorySection = () => {
             <div className="flex gap-2">
               <button
                 onClick={scrollLeft}
-                className="w-10 h-10 bg-gray-100 hover:bg-primary hover:text-white rounded-lg flex items-center justify-center transition-colors"
+                className="w-10 h-10 bg-bg-dark hover:bg-brand-DEFAULT hover:text-text-inverted rounded-lg flex items-center justify-center transition-colors"
               >
                 <ChevronLeft size={20} />
               </button>
               <button
                 onClick={scrollRight}
-                className="w-10 h-10 bg-gray-100 hover:bg-primary hover:text-white rounded-lg flex items-center justify-center transition-colors"
+                className="w-10 h-10 bg-bg-dark hover:bg-brand-DEFAULT hover:text-text-inverted rounded-lg flex items-center justify-center transition-colors"
               >
                 <ChevronRight size={20} />
               </button>
@@ -72,9 +71,8 @@ const CategorySection = () => {
               <Link
                 to={`/products/${category.name}`}
                 key={index}
-                className="group bg-white border border-gray-100 rounded-2xl p-4 md:p-6 text-center shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 flex-shrink-0"
+                className="group bg-bg-DEFAULT border border-ui-gray rounded-2xl p-4 md:p-6 text-center shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 flex-shrink-0"
                 style={{
-                  // width: "calc(50% - 0.5rem)",
                   width: "100%",
                   maxWidth: "250px",
                   scrollSnapAlign: "start",
@@ -87,10 +85,10 @@ const CategorySection = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h3 className="text-xl md:text-base font-semibold text-dark group-hover:text-primary transition-colors">
+                <h3 className="text-xl md:text-base font-semibold text-text-primary group-hover:text-brand-DEFAULT transition-colors">
                   {category.name}
                 </h3>
-                <p className="text-gray-500 text-sm mt-1">
+                <p className="text-text-secondary text-sm mt-1">
                   {productsData[category.name].length} products
                 </p>
               </Link>

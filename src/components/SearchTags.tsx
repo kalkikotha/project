@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SearchTags = () => {
-  // Extract popular tags from your products data
   const tags = [
     { name: "Vitamin C Serum", category: "Serums" },
     { name: "Hyaluronic Acid", category: "Serums" },
@@ -27,9 +26,9 @@ const SearchTags = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-bg-light">
       <div className="container mx-auto px-12">
-        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">
+        <h2 className="text-3xl lg:text-4xl font-bold text-text-primary mb-8">
           Popular Skincare Ingredients
         </h2>
 
@@ -38,8 +37,7 @@ const SearchTags = () => {
             <Link
               key={index}
               to={`/products/${tag.category}`}
-              className="bg-primary-50 hover:bg-primary hover:text-white text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 shadow-sm"
-              state={{ scrollTo: tag.name.replace(/\s+/g, "-").toLowerCase() }} // Optional: for scrolling to specific product
+              className="bg-brand-light hover:bg-brand-DEFAULT hover:text-text-inverted text-text-primary px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 shadow-sm"
             >
               {tag.name}
             </Link>

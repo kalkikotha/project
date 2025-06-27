@@ -15,6 +15,8 @@ import ProductDetailPage from "./components/ProductDetailPage";
 import ComparePage from "./components/ComparePage";
 import ScrollToTop from "./components/ScrollToTop";
 import CategorySection from "./components/CategorySection";
+import WishlistPage from "./components/WishlistPage";
+import SubscriptionPage from "./components/SubscriptionPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -102,6 +104,8 @@ function App() {
                   element={<ProductDetailPage />}
                 />
                 <Route path="/compare" element={<ComparePage />} />
+                <Route path="/wishlist" element={<WishlistPage />} />
+                <Route path="/subscription" element={<SubscriptionPage />} />
               </Routes>
             </main>
 

@@ -42,19 +42,19 @@ async function addWatermarkToPDF(username, email) {
       rotate: degrees(-90),
     });
 
-    originalPage.drawText(email, {
-      x: width / 2 - 150,
-      y: height / 2 - 250,
-      size: 70,
-      font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
-      rotate: degrees(45),
-      opacity: 0.2,
-    });
+    // originalPage.drawText(email, {
+    //   x: width / 2 - 150,
+    //   y: height / 2 - 250,
+    //   size: 70,
+    //   font: helveticaFont,
+    //   color: rgb(0.95, 0.1, 0.1),
+    //   rotate: degrees(45),
+    //   opacity: 0.2,
+    // });
 
-    originalPage.drawText(email, {
+    originalPage.drawText(username, {
       x: width / 2 - 150,
-      y: height / 2 + 50,
+      y: height / 2 - 150,
       size: 70,
       font: helveticaFont,
       color: rgb(0.95, 0.1, 0.1),
@@ -71,23 +71,23 @@ async function addWatermarkToPDF(username, email) {
 exports.getDoc = async (req, res) => {
   try {
     const { username, email } = req.body;
-    // const updatewalletResponse = await updateWalletforOnedoc(
-    //   { body: { email } },
-    //   {
-    //     status: (statusCode) => ({
-    //       json: (data) => ({ statusCode, data }),
-    //     }),
-    //   }
-    // );
-    // if (updatewalletResponse.statusCode === 200) {
-    const pdfBytes = await addWatermarkToPDF(username, email);
-    res.setHeader("Content-Type", "application/pdf");
-    res.send(Buffer.from(pdfBytes));
-    // } else {
-    //   res
-    //     .status(updatewalletResponse.statusCode)
-    //     .json(updatewalletResponse.data);
-    // }
+    const updatewalletResponse = await updateWalletforOnedoc(
+      { body: { email } },
+      {
+        status: (statusCode) => ({
+          json: (data) => ({ statusCode, data }),
+        }),
+      }
+    );
+    if (updatewalletResponse.statusCode === 200) {
+      const pdfBytes = await addWatermarkToPDF(username, email);
+      res.setHeader("Content-Type", "application/pdf");
+      res.send(Buffer.from(pdfBytes));
+    } else {
+      res
+        .status(updatewalletResponse.statusCode)
+        .json(updatewalletResponse.data);
+    }
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ success: false, error: error.message });

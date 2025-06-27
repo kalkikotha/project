@@ -6,6 +6,6 @@ const router = express.Router();
 router.post('/signup', authController.signup);
 router.post('/signin', authController.signin);
 router.post('/subscribe', authController.updateSubscriptionActive);
-router.post('/wallet', authController.updateWalletforOnedoc);
+// router.post('/wallet', authController.updateWalletforOnedoc);
 
 module.exports = router;

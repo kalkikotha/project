@@ -64,8 +64,12 @@ interface AuthContextType {
   updateProfile: (updatedUser: Partial<User>) => void;
   compareItems: Product[];
   addToCompare: (product: Product) => void;
-  removeFromCompare: (productId: string) => void;
+  removeFromCompare: (productId: string, category: string) => void;
   clearCompare: () => void;
+  wishlistItems: Product[];
+  addToWishlist: (product: Product) => void;
+  removeFromWishlist: (productId: string, category: string) => void;
+  clearWishlist: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -73,10 +77,17 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [compareItems, setCompareItems] = useState<Product[]>([]);
+  const [wishlistItems, setWishlistItems] = useState<Product[]>([]);
+
   const addToCompare = (product: Product) => {
     setCompareItems((prev) => {
       // Prevent duplicates
-      if (prev.some((item) => item.id === product.id)) return prev;
+      if (
+        prev.some(
+          (item) => item.id === product.id && item.category === product.category
+        )
+      )
+        return prev;
       // Max 2 items
       if (prev.length >= 2) return [prev[1], product];
       return [...prev, product];
@@ -85,12 +96,40 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const removeFromCompare = (productId: string, category: string) => {
     setCompareItems((prev) =>
-      prev.filter((item) => item.category != category && item.id !== productId)
+      prev.filter(
+        (item) => !(item.category === category && item.id === productId)
+      )
     );
   };
 
   const clearCompare = () => {
     setCompareItems([]);
+  };
+
+  const addToWishlist = (product: Product) => {
+    setWishlistItems((prev) => {
+      // Prevent duplicates
+      if (
+        prev.some(
+          (item) => item.id === product.id && item.category === product.category
+        )
+      ) {
+        return prev;
+      }
+      return [...prev, product];
+    });
+  };
+
+  const removeFromWishlist = (productId: string, category: string) => {
+    setWishlistItems((prev) =>
+      prev.filter(
+        (item) => !(item.category === category && item.id === productId)
+      )
+    );
+  };
+
+  const clearWishlist = () => {
+    setWishlistItems([]);
   };
 
   useEffect(() => {
@@ -247,9 +286,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const generateReferralCode = () => {
-    return (
-      "IngView" + Math.random().toString(36).substring(2, 8).toUpperCase()
-    );
+    return "IngView" + Math.random().toString(36).substring(2, 8).toUpperCase();
   };
 
   return (
@@ -264,6 +301,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         addToCompare,
         removeFromCompare,
         clearCompare,
+        wishlistItems,
+        addToWishlist,
+        removeFromWishlist,
+        clearWishlist,
       }}
     >
       {children}

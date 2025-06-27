@@ -9,7 +9,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-50 pt-16 pb-8">
+    <footer className="bg-bg-light pt-16 pb-8">
       <div className="container mx-auto px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Logo and Social */}
@@ -17,7 +17,7 @@ const Footer = () => {
             <div className="mb-6">
               <a
                 href="#"
-                className="text-2xl font-heading font-bold text-primary"
+                className="text-2xl font-heading font-bold text-brand"
               >
                 IngView
               </a>
@@ -25,31 +25,31 @@ const Footer = () => {
             <div className="flex gap-3">
               <a
                 href="#"
-                className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors"
+                className="w-10 h-10 bg-text-inverted border border-ui-gray rounded-full flex items-center justify-center hover:bg-brand hover:text-text-inverted hover:border-brand transition-colors"
               >
                 <Facebook size={18} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors"
+                className="w-10 h-10 bg-text-inverted border border-ui-gray rounded-full flex items-center justify-center hover:bg-brand hover:text-text-inverted hover:border-brand transition-colors"
               >
                 <Twitter size={18} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors"
+                className="w-10 h-10 bg-text-inverted border border-ui-gray rounded-full flex items-center justify-center hover:bg-brand hover:text-text-inverted hover:border-brand transition-colors"
               >
                 <Youtube size={18} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors"
+                className="w-10 h-10 bg-text-inverted border border-ui-gray rounded-full flex items-center justify-center hover:bg-brand hover:text-text-inverted hover:border-brand transition-colors"
               >
                 <Instagram size={18} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors"
+                className="w-10 h-10 bg-text-inverted border border-ui-gray rounded-full flex items-center justify-center hover:bg-brand hover:text-text-inverted hover:border-brand transition-colors"
               >
                 <ShoppingBag size={18} />
               </a>
@@ -58,12 +58,12 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h5 className="font-semibold text-dark mb-4">About</h5>
+            <h5 className="font-semibold text-text-primary mb-4">About</h5>
             <ul className="space-y-2">
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Our Testing Methods
                 </a>
@@ -71,7 +71,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Research Team
                 </a>
@@ -79,7 +79,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Data Integrity
                 </a>
@@ -89,12 +89,12 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h5 className="font-semibold text-dark mb-4">Resources</h5>
+            <h5 className="font-semibold text-text-primary mb-4">Resources</h5>
             <ul className="space-y-2">
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Ingredient Glossary
                 </a>
@@ -102,7 +102,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Safety Ratings
                 </a>
@@ -110,7 +110,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Testing Methodology
                 </a>
@@ -120,12 +120,12 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h5 className="font-semibold text-dark mb-4">Contact</h5>
+            <h5 className="font-semibold text-text-primary mb-4">Contact</h5>
             <ul className="space-y-2">
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Submit Product
                 </a>
@@ -133,7 +133,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Research Partnerships
                 </a>
@@ -141,37 +141,19 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-primary transition-colors"
+                  className="text-text-secondary hover:text-brand transition-colors"
                 >
                   Data Requests
                 </a>
               </li>
             </ul>
           </div>
-
-          {/* Newsletter */}
-          {/* <div>
-            <h5 className="font-semibold text-dark mb-4">Subscribe Us</h5>
-            <p className="text-gray-600 mb-4">
-              Subscribe to our newsletter to get updates about our grand offers.
-            </p>
-            <form className="flex gap-0">
-              <input
-                className="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                type="email"
-                placeholder="Email Address"
-              />
-              <button className="px-6 py-3 bg-dark text-white rounded-r-lg hover:bg-gray-800 transition-colors">
-                Subscribe
-              </button>
-            </form>
-          </div> */}
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-gray-200 pt-8">
+        <div className="border-t border-ui-gray pt-8">
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-            <p className="text-gray-600 text-sm">
+            <p className="text-text-secondary text-sm">
               © 2025 IngView. All rights reserved.
             </p>
           </div>

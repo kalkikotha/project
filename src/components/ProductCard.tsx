@@ -1,4 +1,4 @@
-import { Heart, BarChart2, ShoppingCart } from "lucide-react";
+import { Heart, BarChart2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 
@@ -19,8 +19,19 @@ const ProductCard = ({
   rating,
   description,
 }: ProductCardProps) => {
-  const { compareItems, addToCompare, removeFromCompare } = useAuth();
+  const {
+    compareItems,
+    addToCompare,
+    removeFromCompare,
+    wishlistItems,
+    addToWishlist,
+    removeFromWishlist,
+  } = useAuth();
   const isInCompare = compareItems.some(
+    (item) => item.id === productId && item.category === category
+  );
+
+  const isInwishlist = wishlistItems.some(
     (item) => item.id === productId && item.category === category
   );
 
@@ -38,13 +49,33 @@ const ProductCard = ({
     }
   };
 
+  const handleWishlistClick = (e) => {
+    e.preventDefault();
+    if (isInwishlist) {
+      removeFromWishlist(productId, category);
+    } else {
+      addToWishlist({
+        id: productId,
+        name: name,
+        image: image,
+        category: category,
+      });
+    }
+  };
+
+  const ratingColors = {
+    A: "bg-ui-success text-ui-success-dark",
+    B: "bg-brand-light text-brand-dark",
+    C: "bg-ui-warning text-ui-warning-dark",
+    D: "bg-ui-error/20 text-ui-error",
+    F: "bg-ui-error text-text-inverted",
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-text-inverted rounded-lg shadow-md overflow-hidden border border-ui-gray hover:shadow-lg transition-shadow duration-300">
       <Link to={`/products/${category}/${productId}`}>
-        {" "}
         <div className="flex flex-col xxl:flex-row">
-          {/* Product Image */}
-          <div className="w-full xxl:w-1/2 h-60 xxl:h-auto">
+          <div className="w-full xxl:w-1/2 h-60 xxl:h-auto bg-bg-light">
             <img
               src={image}
               alt={name}
@@ -52,45 +83,34 @@ const ProductCard = ({
             />
           </div>
 
-          {/* Product Info */}
           <div className="w-full xxl:w-1/2 p-4 flex flex-col gap-3">
-            {/* Name and Rating */}
-            <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
+            <h3 className="text-lg font-semibold text-text-primary">{name}</h3>
             <div className="flex justify-between items-start mb-2">
               <span
-                className={`px-2 py-1 rounded-md text-md font-medium ${
-                  rating === "A"
-                    ? "bg-green-100 text-green-800"
-                    : rating === "B"
-                    ? "bg-blue-100 text-blue-800"
-                    : "bg-yellow-100 text-yellow-800"
-                }`}
+                className={`px-2 py-1 rounded-md text-md font-medium ${ratingColors[rating]}`}
               >
                 Rating: {rating}
               </span>
             </div>
 
-            {/* Description */}
-            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+            <p className="text-text-secondary text-sm mb-4 line-clamp-3">
               {description}
             </p>
 
-            {/* Action Buttons */}
             <div className="mt-auto flex flex-wrap gap-2 justify-around">
               <button
                 onClick={handleCompareClick}
-                className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                className="flex items-center gap-2 px-4 py-2 border border-ui-gray rounded-md hover:bg-bg-light transition-colors"
               >
                 <BarChart2 size={14} />{" "}
                 {isInCompare ? "Remove from Compare" : "Add to Compare"}
               </button>
-              {/* <button className="flex items-center gap-1 text-xs text-gray-600 hover:text-primary transition-colors">
-                <Heart size={14} /> Wishlist
-              </button>
-              <button className="ml-auto flex items-center gap-1 bg-primary text-white px-3 py-2 rounded-md text-sm hover:bg-primary-dark transition-colors">
-                <ShoppingCart size={16} /> Add to Cart
-              </button> */}
-              <button className=" flex items-center gap-1 bg-primary text-white px-3 py-2 rounded-md text-sm hover:bg-primary-dark transition-colors">
+              <button
+                onClick={handleWishlistClick}
+                className={`flex items-center gap-1 ${
+                  isInwishlist ? "bg-brand-dark" : "bg-brand"
+                } text-text-inverted px-3 py-2 rounded-md text-sm hover:bg-brand-dark transition-colors`}
+              >
                 <Heart size={14} />
               </button>
             </div>

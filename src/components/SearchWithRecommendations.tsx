@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Search } from "lucide-react";
 import { productsData } from "./data";
+import { useNavigate } from "react-router-dom";
 
 export const SearchWithRecommendations = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -8,7 +9,7 @@ export const SearchWithRecommendations = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const searchRef = useRef(null);
-
+  const navigate = useNavigate();
   // Flatten all products into one array
   const allProducts = Object.values(productsData).flat();
 
@@ -43,6 +44,16 @@ export const SearchWithRecommendations = () => {
     }
   }, [searchTerm, selectedCategory]);
 
+  const handleSuggestionClick = (product) => {
+    setSearchTerm(product.name);
+    // Immediately close the suggestions
+    setShowSuggestions(false);
+    // Navigate in the next tick to allow state update to render
+    setTimeout(() => {
+      navigate(`/products/${product.category}/${product.productId}`);
+    }, 0);
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     // Handle search submission here
@@ -51,16 +62,13 @@ export const SearchWithRecommendations = () => {
   };
 
   return (
-    <div
-      className="hidden lg:flex flex-1 mx-8 relative w-full"
-      ref={searchRef}
-    >
+    <div className="hidden lg:flex flex-1 mx-8 relative w-full" ref={searchRef}>
       <form
-        className="flex w-full bg-gray-50 rounded-2xl p-2"
+        className="flex w-full bg-bg-light rounded-2xl p-2"
         onSubmit={handleSearch}
       >
         <select
-          className="bg-transparent border-0 px-4 text-sm text-gray-600 focus:outline-none"
+          className="bg-transparent border-0 px-4 text-sm text-text-secondary focus:outline-none"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
@@ -75,21 +83,18 @@ export const SearchWithRecommendations = () => {
           <input
             type="text"
             placeholder="Search for products..."
-            className="w-full bg-transparent border-0 text-sm focus:outline-none"
+            className="w-full bg-transparent border-0 text-sm focus:outline-none text-text-primary"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={() => searchTerm.length > 0 && setShowSuggestions(true)}
           />
           {showSuggestions && filteredProducts.length > 0 && (
-            <div className="absolute left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+            <div className="absolute left-0 right-0 mt-2 bg-text-inverted border border-ui-gray rounded-lg shadow-lg z-20">
               {filteredProducts.map((product) => (
                 <div
                   key={`${product.category}-${product.productId}`}
-                  className="p-3 hover:bg-gray-50 cursor-pointer flex items-center"
-                  onClick={() => {
-                    setSearchTerm(product.name);
-                    setShowSuggestions(false);
-                  }}
+                  className="p-3 hover:bg-bg-light cursor-pointer flex items-center"
+                  onClick={() => handleSuggestionClick(product)}
                 >
                   <img
                     src={product.image}
@@ -97,8 +102,10 @@ export const SearchWithRecommendations = () => {
                     className="w-10 h-10 rounded-md object-cover mr-3"
                   />
                   <div>
-                    <div className="font-medium text-sm">{product.name}</div>
-                    <div className="text-xs text-gray-500">
+                    <div className="font-medium text-sm text-text-primary">
+                      {product.name}
+                    </div>
+                    <div className="text-xs text-text-secondary">
                       {product.category}
                     </div>
                   </div>
@@ -109,7 +116,7 @@ export const SearchWithRecommendations = () => {
         </div>
         <button
           type="submit"
-          className="p-2 text-gray-600 hover:text-primary transition-colors"
+          className="p-2 text-text-secondary hover:text-brand transition-colors"
         >
           <Search size={20} />
         </button>

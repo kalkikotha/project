@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
   try {
-    const {
+    let {
       username,
       email,
       password,
@@ -46,7 +46,7 @@ exports.signup = async (req, res) => {
 
     if (referrerCode) {
       const existingReferrerUser = await USERS.findOne({
-        referrerCode: referrerCode,
+        referralCode: referrerCode,
       });
       if (existingReferrerUser) {
         // Credit 100 to the existing user
@@ -54,7 +54,7 @@ exports.signup = async (req, res) => {
         await existingReferrerUser.save();
 
         // Add 100 credits to the current user
-        credits += 100;
+        credits = Number(credits) + 100;
       }
     }
 
@@ -224,7 +224,22 @@ exports.updateWalletforOnedoc = async (req, res) => {
         message: "User not found. Please check the email provided.",
       });
     }
-    if (user.credits < 100) {
+
+    if (user.subscriptionActive) {
+      return res.status(200).json({
+        success: true,
+        message: "Subscribed User",
+        user: {
+          username: user.username,
+          email: user.email,
+          credits: user.credits,
+          subscriptionActive: user.subscriptionActive,
+          referralCode: user.referralCode,
+        },
+      });
+    }
+
+    if (user.credits < 50) {
       return res.status(400).json({
         success: false,
         message: "Insufficient credits",

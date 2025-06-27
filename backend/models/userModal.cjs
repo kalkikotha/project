@@ -34,5 +34,11 @@ const userSchema = new mongoose.Schema({
   referrerCode: {
     type: String,
   },
+  billingCycle: {
+    type: String,
+  },
+  billingamount: {
+    type: String,
+  },
 });
 module.exports = mongoose.model("USERS", userSchema);
