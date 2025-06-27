@@ -28,7 +28,7 @@ const SearchTags = () => {
 
   return (
     <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-12">
         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">
           Popular Skincare Ingredients
         </h2>

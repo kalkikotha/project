@@ -16,7 +16,7 @@ const AppSection = () => {
               <div className="relative">
                 <img 
                   src="https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg?auto=compress&cs=tinysrgb&w=300&h=600&dpr=1" 
-                  alt="Wethenticate Mobile App"
+                  alt="IngView Mobile App"
                   className="w-64 h-auto mx-auto lg:mx-0 rounded-3xl shadow-2xl transform -rotate-6 hover:rotate-0 transition-transform duration-300"
                 />
               </div>
@@ -24,7 +24,7 @@ const AppSection = () => {
 
             <div className="lg:col-span-8">
               <h2 className="text-4xl lg:text-5xl font-heading font-bold text-dark mb-6">
-                Shop faster with Wethenticate App
+                Shop faster with IngView App
               </h2>
               <p className="text-gray-600 text-lg mb-8 leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis sed ptibus liberolectus non et psryroin.

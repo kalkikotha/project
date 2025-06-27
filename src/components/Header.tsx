@@ -12,6 +12,7 @@ import {
 import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { SearchWithRecommendations } from "./SearchWithRecommendations";
+import Infobanner from "./Infobanner";
 interface HeaderProps {
   onLoginClick: () => void;
   onProfileClick: () => void;
@@ -25,17 +26,36 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
   const navigate = useNavigate();
   return (
     <>
-      <header className="bg-white border-b border-gray-100">
+      <header className="bg-transparent border-b border-gray-100 w-full">
         {/* Top Header */}
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-8 py-4">
           <div className="flex items-center justify-between py-3 border-b border-gray-100">
             {/* Logo */}
+            {/* Logo */}
+            {/* Logo */}
             <div className="flex-shrink-0">
-              <a
-                href="/"
-                className="text-2xl font-heading font-bold text-primary"
-              >
-                Wethenticate
+              <a href="/" className="flex items-center">
+                {/* Test tube icon as visual element */}
+                <svg
+                  className="w-8 h-8 mr-2 text-primary"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M9 3V17M9 17C7.34315 17 6 18.3431 6 20C6 21.6569 7.34315 23 9 23C10.6569 23 12 21.6569 12 20C12 18.3431 10.6569 17 9 17ZM15 3V12M15 12C13.3431 12 12 13.3431 12 15C12 16.6569 13.3431 18 15 18C16.6569 18 18 16.6569 18 15C18 13.3431 16.6569 12 15 12Z"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+
+                {/* Text with scientific styling */}
+                <span className="text-3xl font-bold text-primary">IngView</span>
+
+                {/* Optional subscript */}
+                <sup className="ml-1 text-xs font-medium text-gray-500">
+                  LAB
+                </sup>
               </a>
             </div>
 
@@ -63,8 +83,6 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
               </div>
             </div> */}
 
-            <SearchWithRecommendations />
-
             {/* Right Section */}
             <div className="flex items-center gap-4">
               {/* Support - Desktop */}
@@ -83,7 +101,7 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
                   }}
                   className="relative flex items-center gap-2 px-3 py-2 rounded-full hover:bg-primary bg-gray-100 hover:shadow-md transition-all"
                 >
-                  <BarChart2 size={25} className="text-gray-700" />
+                  <BarChart2 size={20} className="text-gray-700" />
                   {compareItems.length > 0 && (
                     <span className="absolute -top-2 -right-2 text-xs font-bold bg-[#FFC43F] text-black rounded-full px-2 py-0.5 border border-white shadow-sm">
                       {compareItems.length}
@@ -99,10 +117,10 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
                   }
                   className="p-2 bg-gray-100 rounded-full hover:bg-primary hover:text-white transition-colors"
                 >
-                  <User size={25} />
+                  <User size={20} />
                 </button>
                 <button className="p-2 bg-gray-100 rounded-full hover:bg-primary hover:text-white transition-colors">
-                  <Heart size={25} />
+                  <Heart size={20} />
                 </button>
                 {/* <button
                   className="lg:hidden p-2 bg-gray-100 rounded-full hover:bg-primary hover:text-white transition-colors"
@@ -131,120 +149,14 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
             </div>
           </div>
         </div>
+        
+        {/* Info banner */}
+        <Infobanner />
 
         {/* Navigation */}
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-3">
-            {/* <nav className="hidden lg:flex items-center gap-8">
-              <select className="bg-transparent border-0 font-medium text-dark focus:outline-none">
-                <option>Shop by Departments</option>
-                <option>Groceries</option>
-                <option>Drinks</option>
-                <option>Chocolates</option>
-              </select>
-
-              <div className="flex items-center gap-6">
-                <a
-                  href="#"
-                  className="text-dark hover:text-primary transition-colors"
-                >
-                  Women
-                </a>
-                <a
-                  href="#"
-                  className="text-dark hover:text-primary transition-colors"
-                >
-                  Men
-                </a>
-                <a
-                  href="#"
-                  className="text-dark hover:text-primary transition-colors"
-                >
-                  Kids
-                </a>
-                <a
-                  href="#"
-                  className="text-dark hover:text-primary transition-colors"
-                >
-                  Accessories
-                </a>
-                <div className="relative group">
-                  <button className="flex items-center gap-1 text-dark hover:text-primary transition-colors">
-                    Pages <ChevronDown size={16} />
-                  </button>
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      About Us
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      Shop
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      Single Product
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      Cart
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      Checkout
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      Blog
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      Contact
-                    </a>
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  className="text-dark hover:text-primary transition-colors"
-                >
-                  Brand
-                </a>
-                <a
-                  href="#"
-                  className="text-dark hover:text-primary transition-colors"
-                >
-                  Sale
-                </a>
-                <a
-                  href="#"
-                  className="text-dark hover:text-primary transition-colors"
-                >
-                  Blog
-                </a>
-              </div>
-            </nav> */}
-
-            {/* Mobile Menu Button */}
-            {/* <button
-              className="lg:hidden p-2"
-              onClick={() => setIsMenuOpen(true)}
-            >
-              <Menu size={24} />
-            </button> */}
+          <div className="flex items-center justify-around py-3 mx-auto">
+            <SearchWithRecommendations />
           </div>
         </div>
       </header>

@@ -248,7 +248,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const generateReferralCode = () => {
     return (
-      "Wethenticate" + Math.random().toString(36).substring(2, 8).toUpperCase()
+      "IngView" + Math.random().toString(36).substring(2, 8).toUpperCase()
     );
   };
 

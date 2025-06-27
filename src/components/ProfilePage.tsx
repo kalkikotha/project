@@ -202,7 +202,7 @@ const ProfilePage = () => {
                   {user.credits}
                 </span>
                 <span className="text-primary bg-primary-50 px-2 py-1 rounded-full text-xs">
-                  Wethenticate COINS
+                  IngView COINS
                 </span>
               </div>
             </div>

@@ -91,7 +91,7 @@ const ProductCard = ({
                 <ShoppingCart size={16} /> Add to Cart
               </button> */}
               <button className=" flex items-center gap-1 bg-primary text-white px-3 py-2 rounded-md text-sm hover:bg-primary-dark transition-colors">
-                <Heart size={14} /> Wishlist
+                <Heart size={14} />
               </button>
             </div>
           </div>

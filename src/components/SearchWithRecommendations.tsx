@@ -52,7 +52,7 @@ export const SearchWithRecommendations = () => {
 
   return (
     <div
-      className="hidden lg:flex flex-1 max-w-2xl mx-8 relative"
+      className="hidden lg:flex flex-1 mx-8 relative w-full"
       ref={searchRef}
     >
       <form
@@ -81,7 +81,7 @@ export const SearchWithRecommendations = () => {
             onFocus={() => searchTerm.length > 0 && setShowSuggestions(true)}
           />
           {showSuggestions && filteredProducts.length > 0 && (
-            <div className="absolute left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+            <div className="absolute left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
               {filteredProducts.map((product) => (
                 <div
                   key={`${product.category}-${product.productId}`}

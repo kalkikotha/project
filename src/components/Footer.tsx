@@ -10,7 +10,7 @@ import {
 const Footer = () => {
   return (
     <footer className="bg-gray-50 pt-16 pb-8">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Logo and Social */}
           <div className="lg:col-span-2">
@@ -19,7 +19,7 @@ const Footer = () => {
                 href="#"
                 className="text-2xl font-heading font-bold text-primary"
               >
-                Wethenticate
+                IngView
               </a>
             </div>
             <div className="flex gap-3">
@@ -172,7 +172,7 @@ const Footer = () => {
         <div className="border-t border-gray-200 pt-8">
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
             <p className="text-gray-600 text-sm">
-              © 2025 Wethenticate. All rights reserved.
+              © 2025 IngView. All rights reserved.
             </p>
           </div>
         </div>

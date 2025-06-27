@@ -40,8 +40,8 @@ const LoginCard = ({
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-xl overflow-hidden w-full max-w-md">
-      <div className="bg-gradient-to-r from-primary-100 to-primary-200 p-6 text-center">
+    <div className="bg-white rounded-3xl shadow-xl overflow-hidden w-full min-w-[400px] max-w-md">
+      <div className="bg-gradient-to-r from-primary-400 to-primary-600 p-6 text-center">
         <h2 className="text-2xl font-bold text-white">Welcome Back!</h2>
         <p className="text-white/90 mt-1">Login to your account</p>
       </div>
@@ -117,7 +117,7 @@ const LoginCard = ({
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4">
             <div className="flex items-center">
               <input
                 id="remember-me"

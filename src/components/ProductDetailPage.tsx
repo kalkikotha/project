@@ -219,13 +219,13 @@ const ProductDetailPage = () => {
       </section>
 
       {/* section 2 */}
-      <div className="bg-white max-w-4xl flex flex-col mb-8">
+      <div className=" max-w-4xl flex flex-col mb-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">
           RATING DETAILS
         </h2>
         <div className="flex flex-col gap-4">
           {/* Label Accuracy Score */}
-          <div className="flex flex-col items-center rounded-lg cursor-pointer bg-gray-100 p-4">
+          <div className="flex flex-col items-center rounded-lg cursor-pointer  p-4">
             <div className="flex w-full">
               <div className="flex flex-col flex-1 items-center gap-1">
                 <div className="flex items-center w-full justify-between">
@@ -278,7 +278,7 @@ const ProductDetailPage = () => {
           </div>
 
           {/* Non-Toxicity Score */}
-          <div className="flex flex-col items-center rounded-lg cursor-pointer bg-gray-100 p-4">
+          <div className="flex flex-col items-center rounded-lg cursor-pointer  p-4">
             <div className="flex w-full">
               <div className="flex flex-col flex-1 items-center gap-1">
                 <div className="flex items-center w-full justify-between">
@@ -319,7 +319,7 @@ const ProductDetailPage = () => {
                   style={{
                     color: "transparent",
                     transform: `rotate(${
-                      ratingExpanded1 ? "90deg" : "-90deg"
+                      ratingExpanded2 ? "90deg" : "-90deg"
                     })`,
                     height: "14px",
                   }}

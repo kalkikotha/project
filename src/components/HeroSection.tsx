@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import CategorySection from "./CategorySection";
 import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
@@ -67,7 +66,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="py-12 bg-gradient-to-br from-blue-50 to-green-50">
+    <section className="py-12 ">
       <div className="container mx-auto ">
         {/* Main Carousel */}
         <div className="mb-16">
@@ -145,7 +144,6 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-        <CategorySection />
       </div>
     </section>
   );

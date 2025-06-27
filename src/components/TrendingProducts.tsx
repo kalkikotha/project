@@ -17,8 +17,8 @@ const TrendingProducts = () => {
   }, [activeTab]);
 
   return (
-    <section className="py-16">
-      <div className="container mx-auto px-4">
+    <section className="py-4">
+      <div className="container mx-auto px-12">
         <div className="flex flex-wrap justify-between items-center mb-12 border-b border-gray-200 pb-6">
           <h2 className="text-3xl lg:text-4xl font-heading font-bold text-dark">
             Trending Products
@@ -40,7 +40,7 @@ const TrendingProducts = () => {
             </button>
             <button
               onClick={() => {
-                setActiveTab("Serums");
+                setActiveTab("Lotions");
                 // navigate("/products/Serums");
               }}
               className={`text-sm font-medium uppercase tracking-wider pb-2 border-b-2 transition-colors ${
@@ -49,11 +49,11 @@ const TrendingProducts = () => {
                   : "text-gray-500 border-transparent hover:text-dark"
               }`}
             >
-              Serums
+              Lotions
             </button>
             <button
               onClick={() => {
-                setActiveTab("Lotions");
+                setActiveTab("Soaps");
                 // navigate("/products/Lotions");
               }}
               className={`text-sm font-medium uppercase tracking-wider pb-2 border-b-2 transition-colors ${
@@ -62,12 +62,12 @@ const TrendingProducts = () => {
                   : "text-gray-500 border-transparent hover:text-dark"
               }`}
             >
-              Lotions
+              Soaps
             </button>
           </nav>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {filteredProducts.length > 0 &&
             filteredProducts
               .slice(0, 5)

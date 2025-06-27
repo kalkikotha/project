@@ -27,8 +27,8 @@ const CategorySection = () => {
   };
 
   return (
-    <section className="py-16 overflow-hidden bg-transparent">
-      <div className="container mx-auto px-4">
+    <section className="py-6 overflow-hidden bg-transparent">
+      <div className="container mx-auto px-12 ">
         <div className="flex flex-wrap justify-between items-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-heading font-bold text-dark">
             Our Skincare Categories
@@ -61,7 +61,7 @@ const CategorySection = () => {
 
         <div
           ref={scrollContainerRef}
-          className="flex overflow-x-auto pb-6 -mx-4 px-4 scrollbar-hide"
+          className="flex overflow-x-auto pb-6 -mx-4 scrollbar-hide"
           style={{
             scrollSnapType: "x mandatory",
             scrollBehavior: "smooth",
@@ -76,7 +76,7 @@ const CategorySection = () => {
                 style={{
                   // width: "calc(50% - 0.5rem)",
                   width: "100%",
-                  maxWidth: "300px",
+                  maxWidth: "250px",
                   scrollSnapAlign: "start",
                 }}
               >

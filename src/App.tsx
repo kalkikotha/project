@@ -14,6 +14,7 @@ import ProductsPage from "./components/ProductsPage";
 import ProductDetailPage from "./components/ProductDetailPage";
 import ComparePage from "./components/ComparePage";
 import ScrollToTop from "./components/ScrollToTop";
+import CategorySection from "./components/CategorySection";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -23,7 +24,7 @@ function App() {
   const MainContent = () => (
     <>
       <HeroSection />
-      {/* <CategorySection /> */}
+      <CategorySection />
       {/* <BrandSection /> */}
       <TrendingProducts />
       {/* <DiscountSection /> */}
@@ -38,78 +39,80 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen bg-white w-full">
-          <Header
-            onLoginClick={() => {
-              setShowLogin(true);
-              setShowSignup(false);
-              setShowProfile(false);
-            }}
-            onProfileClick={() => {
-              setShowProfile(true);
-              setShowLogin(false);
-              setShowSignup(false);
-            }}
-          />
+        <div className="bg-whitesmoke">
+          <div className="min-h-screen  w-full max-w-[956px] mx-auto bg-gradient-to-br from-blue-50 to-green-50">
+            <Header
+              onLoginClick={() => {
+                setShowLogin(true);
+                setShowSignup(false);
+                setShowProfile(false);
+              }}
+              onProfileClick={() => {
+                setShowProfile(true);
+                setShowLogin(false);
+                setShowSignup(false);
+              }}
+            />
 
-          <main>
-            {/* Auth Modals */}
-            {(showLogin || showSignup) && (
-              <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-                <div className="relative">
-                  <button
-                    onClick={() => {
-                      setShowLogin(false);
-                      setShowSignup(false);
-                    }}
-                    className="absolute -top-10 right-0 text-white hover:text-gray-200"
-                  >
-                    <span>X</span>
-                  </button>
-                  {showLogin && (
-                    <LoginCard
-                      onSwitchToSignup={() => {
-                        setShowLogin(false);
-                        setShowSignup(true);
-                      }}
-                      onSucess={() => {
+            <main>
+              {/* Auth Modals */}
+              {(showLogin || showSignup) && (
+                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                  <div className="relative">
+                    <button
+                      onClick={() => {
                         setShowLogin(false);
                         setShowSignup(false);
                       }}
-                    />
-                  )}
-                  {showSignup && (
-                    <SignupCard
-                      onSwitchToLogin={() => {
-                        setShowSignup(false);
-                        setShowLogin(true);
-                      }}
-                      onSucess={() => {
-                        setShowLogin(false);
-                        setShowSignup(false);
-                      }}
-                    />
-                  )}
+                      className="absolute -top-10 right-0 text-white hover:text-gray-200"
+                    >
+                      <span>X</span>
+                    </button>
+                    {showLogin && (
+                      <LoginCard
+                        onSwitchToSignup={() => {
+                          setShowLogin(false);
+                          setShowSignup(true);
+                        }}
+                        onSucess={() => {
+                          setShowLogin(false);
+                          setShowSignup(false);
+                        }}
+                      />
+                    )}
+                    {showSignup && (
+                      <SignupCard
+                        onSwitchToLogin={() => {
+                          setShowSignup(false);
+                          setShowLogin(true);
+                        }}
+                        onSucess={() => {
+                          setShowLogin(false);
+                          setShowSignup(false);
+                        }}
+                      />
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
-            <ScrollToTop />
-            <Routes>
-              <Route
-                path="/"
-                element={showProfile ? <ProfilePage /> : <MainContent />}
-              />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/products/:category" element={<ProductsPage />} />
-              <Route
-                path="/products/:category/:productId"
-                element={<ProductDetailPage />}
-              />
-              <Route path="/compare" element={<ComparePage />} />
-            </Routes>
-          </main>
+              )}
+              <ScrollToTop />
+              <Routes>
+                <Route
+                  path="/"
+                  element={showProfile ? <ProfilePage /> : <MainContent />}
+                />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/products/:category" element={<ProductsPage />} />
+                <Route
+                  path="/products/:category/:productId"
+                  element={<ProductDetailPage />}
+                />
+                <Route path="/compare" element={<ComparePage />} />
+              </Routes>
+            </main>
 
-          <Footer />
+            <Footer />
+          </div>
         </div>
       </Router>
     </AuthProvider>

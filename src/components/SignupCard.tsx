@@ -96,10 +96,10 @@ const SignupCard = ({
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-xl overflow-hidden w-full max-w-md">
-      <div className="bg-gradient-to-r from-primary-100 to-primary-200 p-6 text-center">
+    <div className="bg-white rounded-3xl shadow-xl overflow-hidden w-full min-w-[500px]  max-w-md">
+      <div className="bg-gradient-to-r from-primary-400 to-primary-600 p-6 text-center">
         <h2 className="text-2xl font-bold text-white">Create Account</h2>
-        <p className="text-white/90 mt-1">Join Wethenticate today</p>
+        <p className="text-white/90 mt-1">Join IngView today</p>
       </div>
 
       <div className="p-8">
@@ -241,7 +241,7 @@ const SignupCard = ({
                 value={formData.referrerCode}
                 onChange={handleChange}
                 className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                placeholder="Wethenticate123"
+                placeholder="IngView123"
               />
             </div>
           </div>
