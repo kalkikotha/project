@@ -1,14 +1,25 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
-import { User, Mail, Lock, Phone, Gift, Shield } from "lucide-react";
+import {
+  User,
+  Mail,
+  Lock,
+  Phone,
+  Gift,
+  Shield,
+  EyeOff,
+  Eye,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const SignupCard = ({
   onSwitchToLogin,
   onSucess,
+  onClose,
 }: {
   onSwitchToLogin: () => void;
   onSucess: () => void;
+  onClose: () => void;
 }) => {
   const [formData, setFormData] = useState({
     username: "",
@@ -101,7 +112,13 @@ const SignupCard = ({
   };
 
   return (
-    <div className="bg-text-inverted rounded-3xl shadow-xl overflow-hidden w-full min-w-[500px] max-w-md">
+    <div className="bg-text-inverted rounded-3xl shadow-xl overflow-hidden w-[330px] sm:w-[400px] md:w-[500px] ">
+      <button
+        onClick={onClose}
+        className="absolute top-5 right-5 text-text-inverted hover:text-ui-gray"
+      >
+        <span>X</span>
+      </button>
       <div className="bg-gradient-to-r from-brand to-brand-dark p-6 text-center">
         <h2 className="text-2xl font-bold text-text-inverted">
           Create Account
@@ -193,12 +210,12 @@ const SignupCard = ({
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <Lock
+                  <EyeOff
                     size={18}
                     className="text-text-secondary hover:text-text-primary"
                   />
                 ) : (
-                  <Lock
+                  <Eye
                     size={18}
                     className="text-text-secondary hover:text-text-primary"
                   />

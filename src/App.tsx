@@ -59,17 +59,8 @@ function App() {
 
             <main>
               {(showLogin || showSignup) && (
-                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-start p-4 overflow-y-auto">
                   <div className="relative">
-                    <button
-                      onClick={() => {
-                        setShowLogin(false);
-                        setShowSignup(false);
-                      }}
-                      className="absolute -top-10 right-0 text-text-inverted hover:text-ui-gray"
-                    >
-                      <span>X</span>
-                    </button>
                     {showLogin && (
                       <LoginCard
                         onSwitchToSignup={() => {
@@ -77,6 +68,10 @@ function App() {
                           setShowSignup(true);
                         }}
                         onSucess={() => {
+                          setShowLogin(false);
+                          setShowSignup(false);
+                        }}
+                        onClose={() => {
                           setShowLogin(false);
                           setShowSignup(false);
                         }}
@@ -89,6 +84,10 @@ function App() {
                           setShowLogin(true);
                         }}
                         onSucess={() => {
+                          setShowLogin(false);
+                          setShowSignup(false);
+                        }}
+                        onClose={() => {
                           setShowLogin(false);
                           setShowSignup(false);
                         }}

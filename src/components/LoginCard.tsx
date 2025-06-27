@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 const LoginCard = ({
   onSwitchToSignup,
   onSucess,
+  onClose,
 }: {
   onSwitchToSignup: () => void;
   onSucess: () => void;
+  onClose: () => void;
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,7 +42,13 @@ const LoginCard = ({
   };
 
   return (
-    <div className="bg-text-inverted rounded-3xl shadow-xl overflow-hidden w-full min-w-[400px] max-w-md">
+    <div className="bg-text-inverted rounded-3xl shadow-xl overflow-hidden w-[330px] xs:w-[350px] sm:w-[400px] md:w-[500px]">
+      <button
+        onClick={onClose}
+        className="absolute top-5 right-5 text-text-inverted hover:text-ui-gray"
+      >
+        <span>X</span>
+      </button>
       <div className="bg-gradient-to-r from-brand to-brand-dark p-6 text-center">
         <h2 className="text-2xl font-bold text-text-inverted">Welcome Back!</h2>
         <p className="text-text-inverted/90 mt-1">Login to your account</p>
@@ -163,7 +171,6 @@ const LoginCard = ({
       </div>
     </div>
   );
-  
 };
 
 export default LoginCard;
