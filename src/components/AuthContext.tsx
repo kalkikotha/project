@@ -275,7 +275,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.setItem("user", JSON.stringify({}));
+    localStorage.setItem("user", JSON.stringify(null));
   };
 
   const updateProfile = (updatedUser: Partial<User>) => {

@@ -34,7 +34,7 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
         <div className="container mx-auto px-4 md:px-8 py-4">
           <div className="flex items-center justify-between py-3">
             <div className="flex-shrink-0">
-              <a href="/" className="flex items-center">
+              <a href="/" className="flex items-center cursor-pointer">
                 <svg
                   className="w-8 h-8 mr-2 text-brand"
                   viewBox="0 0 24 24"
@@ -56,7 +56,7 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
 
             {/* Desktop Icons (hidden on mobile) */}
             <div className="hidden md:flex items-center gap-4">
-              <Link
+              {/* <Link
                 to="/compare"
                 state={{
                   product1: compareItems[0],
@@ -70,25 +70,44 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
                     {compareItems.length}
                   </span>
                 )}
-              </Link>
-
-              <button
-                onClick={handleProfileClick}
-                className="p-2 bg-bg-dark rounded-full hover:bg-brand hover:text-text-inverted transition-colors"
+              </Link> */}
+              <div
+                className="flex flex-row items-center hover:cursor-pointer"
+                onClick={() => navigate("/compare")}
               >
-                <User size={20} />
-              </button>
-              <button
+                <button className="relative p-2 rounded-full transition-colors">
+                  <BarChart2 size={20} className="text-text-primary" />
+                  {compareItems.length > 0 && (
+                    <span className="absolute -top-2 -right-2 text-xs font-bold text-black px-2 py-0.5 shadow-sm">
+                      {compareItems.length}
+                    </span>
+                  )}{" "}
+                </button>
+                <span>Compare</span>
+              </div>
+              <div
+                className="flex flex-row items-center hover:cursor-pointer"
+                onClick={() => navigate("/profile")}
+              >
+                <button className="p-2 rounded-full transition-colors">
+                  <User size={20} />
+                </button>
+                <span>Profile</span>
+              </div>
+              <div
+                className="flex flex-row items-center hover:cursor-pointer"
                 onClick={() => navigate("/wishlist")}
-                className="relative flex items-center gap-2 px-3 py-2 rounded-full hover:bg-brand bg-bg-dark hover:shadow-md transition-all"
               >
-                <Heart size={20} className="text-text-primary" />
-                {wishlistItems.length > 0 && (
-                  <span className="absolute -top-2 -right-2 text-xs font-bold bg-ui-warning text-black rounded-full px-2 py-0.5 border border-bg-DEFAULT shadow-sm">
-                    {wishlistItems.length}
-                  </span>
-                )}
-              </button>
+                <button className="relative flex items-center gap-2 px-3 py-2 rounded-full transition-all cursor-pointer">
+                  <Heart size={20} className="text-text-primary" />
+                  {wishlistItems.length > 0 && (
+                    <span className="absolute -top-2 -right-2 text-xs font-bold bg-ui-warning text-black rounded-full px-2 py-0.5 border border-bg-DEFAULT shadow-sm">
+                      {wishlistItems.length}
+                    </span>
+                  )}{" "}
+                </button>{" "}
+                <span>Wishlist</span>
+              </div>
             </div>
 
             {/* Mobile Menu Button (visible only on mobile) */}

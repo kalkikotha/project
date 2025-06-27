@@ -94,7 +94,7 @@ const ProductDetailPage = () => {
     setLoading(true);
     setInfo("");
     setError("");
-    if (!user?.email) {
+    if (!user) {
       setInfo("Please login to access the document");
       setSnackbar(true);
       setLoading(false);

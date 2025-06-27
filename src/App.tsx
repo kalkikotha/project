@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
 import Header from "./components/Header";
@@ -17,11 +16,18 @@ import ScrollToTop from "./components/ScrollToTop";
 import CategorySection from "./components/CategorySection";
 import WishlistPage from "./components/WishlistPage";
 import SubscriptionPage from "./components/SubscriptionPage";
+import { useModal } from "./components/ModalContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
+  const {
+    showLogin,
+    setShowLogin,
+    showSignup,
+    setShowSignup,
+    showProfile,
+    setShowProfile,
+  } = useModal();
 
   const MainContent = () => (
     <>
@@ -97,15 +103,47 @@ function App() {
                   path="/"
                   element={showProfile ? <ProfilePage /> : <MainContent />}
                 />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <ProfilePage />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/products/:category" element={<ProductsPage />} />
                 <Route
                   path="/products/:category/:productId"
-                  element={<ProductDetailPage />}
+                  element={
+                    <ProtectedRoute>
+                      <ProductDetailPage />
+                    </ProtectedRoute>
+                  }
                 />
-                <Route path="/compare" element={<ComparePage />} />
-                <Route path="/wishlist" element={<WishlistPage />} />
-                <Route path="/subscription" element={<SubscriptionPage />} />
+                <Route
+                  path="/compare"
+                  element={
+                    <ProtectedRoute>
+                      <ComparePage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/wishlist"
+                  element={
+                    <ProtectedRoute>
+                      <WishlistPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/subscription"
+                  element={
+                    <ProtectedRoute>
+                      <SubscriptionPage />
+                    </ProtectedRoute>
+                  }
+                />
               </Routes>
             </main>
 

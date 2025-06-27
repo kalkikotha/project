@@ -131,7 +131,7 @@ const ProfilePage = () => {
                   <User size={18} className="mr-2" />
                   <span className="text-sm font-medium">Full Name</span>
                 </div>
-                <button
+                {/* <button
                   onClick={handleNameEdit}
                   className="text-brand hover:text-brand-dark transition-colors"
                 >
@@ -146,7 +146,7 @@ const ProfilePage = () => {
                       <span className="text-sm">Edit</span>
                     </div>
                   )}
-                </button>
+                </button> */}
               </div>
               {isEditingName ? (
                 <input
@@ -176,7 +176,7 @@ const ProfilePage = () => {
                   <Phone size={18} className="mr-2" />
                   <span className="text-sm font-medium">Phone Number</span>
                 </div>
-                <button
+                {/* <button
                   onClick={handlePhoneEdit}
                   className="text-brand hover:text-brand-dark transition-colors"
                 >
@@ -191,7 +191,7 @@ const ProfilePage = () => {
                       <span className="text-sm">Edit</span>
                     </div>
                   )}
-                </button>
+                </button> */}
               </div>
               {isEditingPhone ? (
                 <input
