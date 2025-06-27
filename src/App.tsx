@@ -25,12 +25,7 @@ function App() {
     <>
       <HeroSection />
       <CategorySection />
-      {/* <BrandSection /> */}
       <TrendingProducts />
-      {/* <DiscountSection /> */}
-      {/* <JustArrived /> */}
-      {/* <BlogSection /> */}
-      {/* <AppSection /> */}
       <SearchTags />
       <Features />
     </>
@@ -39,8 +34,8 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="bg-whitesmoke">
-          <div className="min-h-screen  w-full max-w-[956px] mx-auto bg-gradient-to-br from-blue-50 to-green-50">
+        <div className="bg-bg-light">
+          <div className="min-h-screen w-full max-w-[1024px] mx-auto bg-gradient-to-br from-gradient-hero-start to-gradient-hero-end">
             <Header
               onLoginClick={() => {
                 setShowLogin(true);
@@ -55,7 +50,6 @@ function App() {
             />
 
             <main>
-              {/* Auth Modals */}
               {(showLogin || showSignup) && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                   <div className="relative">
@@ -64,7 +58,7 @@ function App() {
                         setShowLogin(false);
                         setShowSignup(false);
                       }}
-                      className="absolute -top-10 right-0 text-white hover:text-gray-200"
+                      className="absolute -top-10 right-0 text-text-inverted hover:text-ui-gray"
                     >
                       <span>X</span>
                     </button>

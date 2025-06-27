@@ -34,6 +34,41 @@ export default {
         "light-dark": "#727272",
         grey: "#dbdbdb",
         "light-grey": "#fafafa",
+        brand: {
+          DEFAULT: "#0EB095", // Your teal color
+          light: "#E0F7F3",
+          dark: "#0A7D6A",
+        },
+
+        // Text colors
+        text: {
+          primary: "#222222",
+          secondary: "#727272",
+          inverted: "#FFFFFF",
+        },
+
+        // Background colors
+        bg: {
+          DEFAULT: "#FFFFFF",
+          light: "#FAFAFA",
+          dark: "#F5F5F5",
+        },
+
+        // UI colors
+        ui: {
+          gray: "#DBDBDB",
+          success: "#A3BE4C",
+          warning: "#FFC43F",
+          error: "#E53E3E",
+        },
+
+        // Gradients
+        gradient: {
+          hero: {
+            start: "#F0F9FF", // blue-50
+            end: "#F0FDF4", // green-50
+          },
+        },
       },
       fontFamily: {
         sans: ["Open Sans", "sans-serif"],
