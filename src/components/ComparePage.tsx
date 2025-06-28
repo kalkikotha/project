@@ -47,24 +47,33 @@ const ComparePage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 w-full max-w-[968px]">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col gap-2 mb-4 md:mb-8">
         <Link
           to="/products/Serums"
-          className="flex items-center text-brand hover:underline"
+          className="flex  text-brand hover:underline justify-self-start"
         >
           <ChevronLeft className="mr-1" size={20} />
-          Back to Products
+          Back
         </Link>
-        <h1 className="text-3xl font-bold text-center text-text-primary">
+        <h1 className="text-2xl md:text-3xl  font-bold text-center text-text-primary justify-self-center">
           Product Comparison
         </h1>
-        <div className="w-8"></div>
+        {/* Empty State CTA */}
+        {compareItems.length < 2 && (
+          <div className="text-center">
+            <h3 className="text-sm md:text-xl font-medium text-text-primary mb-2">
+              {compareItems.length === 0
+                ? "Add two products in same category to compare"
+                : "Add another product to compare"}
+            </h3>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product 1 Slot */}
         <div
-          className={`relative rounded-lg p-6 min-h-[400px] flex flex-col ${
+          className={`relative rounded-lg p-6 h-full sm:max-h-[200px] md:max-h-[300px] flex flex-col ${
             compareItems[0]
               ? "border border-ui-gray"
               : "border-2 border-dashed border-ui-gray"
@@ -109,8 +118,8 @@ const ComparePage = () => {
               to="/products/Serums"
               className="flex flex-col items-center justify-center h-full text-center group"
             >
-              <div className="w-32 h-32 rounded-full bg-bg-light flex items-center justify-center mb-4 group-hover:bg-bg-dark transition-colors">
-                <Plus size={48} className="text-text-secondary" />
+              <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-bg-light flex items-center justify-center mb-4 group-hover:bg-bg-dark transition-colors">
+                <Plus size={32} className="text-text-secondary" />
               </div>
               <h3 className="text-lg font-medium text-text-primary">
                 Add Product
@@ -132,7 +141,7 @@ const ComparePage = () => {
 
         {/* Product 2 Slot */}
         <div
-          className={`relative rounded-lg p-6 min-h-[400px] flex flex-col ${
+          className={`relative rounded-lg p-6 h-full sm:max-h-[200px] md:max-h-[300px] flex flex-col ${
             compareItems[1]
               ? "border border-ui-gray"
               : "border-2 border-dashed border-ui-gray"
@@ -176,8 +185,8 @@ const ComparePage = () => {
               to="/products/Serums"
               className="flex flex-col items-center justify-center h-full text-center group"
             >
-              <div className="w-32 h-32 rounded-full bg-bg-light flex items-center justify-center mb-4 group-hover:bg-bg-dark transition-colors">
-                <Plus size={48} className="text-text-secondary" />
+              <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-bg-light flex items-center justify-center mb-4 group-hover:bg-bg-dark transition-colors">
+                <Plus size={32} className="text-text-secondary" />
               </div>
               <h3 className="text-lg font-medium text-text-primary">
                 Add Product
@@ -241,24 +250,6 @@ const ComparePage = () => {
               )}
             </div>
           ))}
-        </div>
-      )}
-
-      {/* Empty State CTA */}
-      {compareItems.length < 2 && (
-        <div className="text-center mt-12">
-          <h3 className="text-xl font-medium text-text-primary mb-2">
-            {compareItems.length === 0
-              ? "Add two products in same category to compare"
-              : "Add another product to compare"}
-          </h3>
-          <Link
-            to="/products/Serums"
-            className="inline-flex items-center px-6 py-3 bg-brand text-text-inverted rounded-lg hover:bg-brand-dark transition-colors"
-          >
-            <Plus className="mr-2" size={20} />
-            Browse Products
-          </Link>
         </div>
       )}
     </div>

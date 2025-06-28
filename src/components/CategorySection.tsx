@@ -27,9 +27,9 @@ const CategorySection = () => {
 
   return (
     <section className="py-6 overflow-hidden bg-transparent">
-      <div className="container mx-auto px-12">
-        <div className="flex flex-wrap justify-between items-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-heading font-bold text-text-primary">
+      <div className="container mx-auto px-4 md:px-12">
+        <div className="flex flex-wrap justify-between items-center mb-4 md:mb-12 gap-2">
+          <h2 className=" text-2xl lg:text-4xl font-heading font-bold text-text-primary">
             Our Skincare Categories
           </h2>
 

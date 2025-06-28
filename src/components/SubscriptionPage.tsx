@@ -12,7 +12,7 @@ const SubscriptionPage = () => {
 
   const pricing = {
     monthly: 300,
-    yearly: 1000,
+    yearly: 999,
   };
 
   const handleSubmit = async (e) => {
@@ -141,7 +141,7 @@ const SubscriptionPage = () => {
             <div className="flex flex-col items-center">
               <Calendar className="text-brand-400 mb-2" size={24} />
               <span className="font-medium text-text-primary">Yearly</span>
-              <span className="text-2xl font-bold mt-2">₹1000</span>
+              <span className="text-2xl font-bold mt-2">₹999</span>
               <span className="text-text-secondary text-sm mt-1">per year</span>
               <span className="text-ui-success text-xs mt-1">Save ₹2600</span>
             </div>

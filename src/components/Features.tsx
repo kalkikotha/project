@@ -27,7 +27,7 @@ const Features = () => {
 
   return (
     <section className="py-16 bg-bg-light">
-      <div className="container mx-auto px-12 overflow-hidden">
+      <div className="container mx-auto px-4 md:px-12 overflow-hidden">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;

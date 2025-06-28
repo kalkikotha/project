@@ -262,7 +262,7 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
           </div>
         </div>
 
-        <Infobanner />
+        {!(user && user.subscriptionActive) && <Infobanner />}
 
         {showSearch && (
           <div className="container mx-auto px-4">
@@ -284,37 +284,73 @@ const Header = ({ onLoginClick, onProfileClick }: HeaderProps) => {
 
           {/* Menu Panel */}
           <div className="absolute right-0 top-0 h-full w-3/4 max-w-xs bg-brand-light shadow-lg p-6 transform transition-transform">
-            <div className="flex flex-col items-end gap-6 mt-10">
-              <Link
-                to="/compare"
-                state={{
-                  product1: compareItems[0],
-                  product2: compareItems[1],
+            <div className="flex flex-col items-start gap-6 mt-10">
+              <div
+                className="flex flex-row items-center hover:cursor-pointer"
+                onClick={() => {
+                  navigate("/compare");
+                  setIsMobileMenuOpen(false);
                 }}
-                className="relative flex items-center gap-3 px-4 py-3 rounded-full hover:shadow-md transition-all w-full"
-                onClick={closeMobileMenu}
               >
-                <BarChart2 size={24} />
+                <button className="relative p-2 rounded-full transition-colors">
+                  <BarChart2 size={20} className="text-text-primary" />
+                  {compareItems.length > 0 && (
+                    <span className="absolute -top-2 -right-2 text-xs font-bold bg-ui-warning text-black rounded-full px-2 py-0.5 border border-bg-DEFAULT shadow-sm">
+                      {compareItems.length}
+                    </span>
+                  )}{" "}
+                </button>
                 <span>Compare</span>
-                {compareItems.length > 0 && (
-                  <span className="ml-auto text-sm font-bold bg-ui-warning text-black rounded-full px-2 py-0.5">
-                    {compareItems.length}
-                  </span>
-                )}
-              </Link>
+              </div>
 
-              <button
-                onClick={handleProfileClick}
-                className="flex items-center gap-3 px-4 py-3 rounded-full  hover:shadow-md transition-all w-full"
+              <div
+                className="flex flex-row items-center hover:cursor-pointer"
+                onClick={() => {
+                  navigate("/profile");
+                  setIsMobileMenuOpen(false);
+                }}
               >
-                <User size={24} />
-                <span>{user ? "Profile" : "Login"}</span>
-              </button>
+                <button className="p-2 rounded-full transition-colors">
+                  <User size={20} />
+                </button>
+                <span>Profile</span>
+              </div>
 
-              <button className="flex items-center gap-3 px-4 py-3 rounded-full  hover:shadow-md transition-all w-full">
-                <Heart size={24} />
+              <div
+                className="flex flex-row items-center hover:cursor-pointer"
+                onClick={() => {
+                  navigate("/wishlist");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <button className="relative flex items-center gap-2 px-3 py-2 rounded-full transition-all cursor-pointer">
+                  <Heart size={20} className="text-text-primary" />
+                  {wishlistItems.length > 0 && (
+                    <span className="absolute -top-2 -right-2 text-xs font-bold bg-ui-warning text-black rounded-full px-2 py-0.5 border border-bg-DEFAULT shadow-sm">
+                      {wishlistItems.length}
+                    </span>
+                  )}{" "}
+                </button>{" "}
                 <span>Wishlist</span>
-              </button>
+              </div>
+
+              <div
+                className="flex flex-row items-center hover:cursor-pointer"
+                onClick={() => {
+                  setIsCartOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <button className="relative flex items-center gap-2 px-3 py-2 rounded-full transition-all cursor-pointer">
+                  <ShoppingCart size={20} className="text-text-primary" />
+                  {cartItems.length > 0 && (
+                    <span className="absolute -top-2 -right-2 text-xs font-bold bg-ui-warning text-black rounded-full px-2 py-0.5 border border-bg-DEFAULT shadow-sm">
+                      {cartItems.length}
+                    </span>
+                  )}{" "}
+                </button>{" "}
+                <span>Cart</span>
+              </div>
             </div>
           </div>
         </div>

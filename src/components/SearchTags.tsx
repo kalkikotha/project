@@ -26,9 +26,9 @@ const SearchTags = () => {
   ];
 
   return (
-    <section className="py-16 bg-bg-light">
-      <div className="container mx-auto px-12">
-        <h2 className="text-3xl lg:text-4xl font-bold text-text-primary mb-8">
+    <section className="py-6 md:py-16 bg-bg-light">
+      <div className="container mx-auto px-4 md:px-12">
+        <h2 className="text-2xl lg:text-4xl font-bold text-text-primary mb-8">
           Popular Skincare Ingredients
         </h2>
 

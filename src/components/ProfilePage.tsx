@@ -75,10 +75,10 @@ const ProfilePage = () => {
   const triggerFileInput = () => fileInputRef.current?.click();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="bg-text-inverted rounded-3xl shadow-lg overflow-hidden">
-        <div className="bg-gradient-to-r from-brand to-brand-dark p-6 text-center">
-          <h1 className="text-2xl font-bold text-text-inverted">My Profile</h1>
+        <div className="bg-gradient-to-r from-brand to-brand-dark p-4 md:p-6 text-center">
+          <h1 className="text-xl md:text-2xl font-bold text-text-inverted">My Profile</h1>
         </div>
 
         <div className="p-6 md:p-8">
