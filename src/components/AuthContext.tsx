@@ -30,6 +30,7 @@ interface Product {
     "Butryic Acid"?: string;
     "Caproic Acid"?: string;
   };
+  price?: string;
   // Add other product properties you need
 }
 
@@ -70,6 +71,10 @@ interface AuthContextType {
   addToWishlist: (product: Product) => void;
   removeFromWishlist: (productId: string, category: string) => void;
   clearWishlist: () => void;
+  cartItems: Product[];
+  addToCart: (product: Product) => void;
+  removeFromCart: (productId: string, category: string) => void;
+  clearCart: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -78,6 +83,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [compareItems, setCompareItems] = useState<Product[]>([]);
   const [wishlistItems, setWishlistItems] = useState<Product[]>([]);
+  const [cartItems, setCartItems] = useState<Product[]>([]);
 
   const addToCompare = (product: Product) => {
     setCompareItems((prev) => {
@@ -104,6 +110,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const clearCompare = () => {
     setCompareItems([]);
+  };
+
+  const addToCart = (product: Product) => {
+    setCartItems((prev) => {
+      // Prevent duplicates
+      if (
+        prev.some(
+          (item) => item.id === product.id && item.category === product.category
+        )
+      ) {
+        return prev;
+      }
+      return [...prev, product];
+    });
+  };
+
+  const removeFromCart = (productId: string, category: string) => {
+    setCartItems((prev) =>
+      prev.filter(
+        (item) => !(item.category === category && item.id === productId)
+      )
+    );
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
   };
 
   const addToWishlist = (product: Product) => {
@@ -305,6 +337,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         addToWishlist,
         removeFromWishlist,
         clearWishlist,
+        cartItems,
+        addToCart,
+        removeFromCart,
+        clearCart,
       }}
     >
       {children}

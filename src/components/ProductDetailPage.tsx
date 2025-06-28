@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Heart, BarChart2, ChevronLeft } from "lucide-react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import {
+  Heart,
+  BarChart2,
+  ChevronLeft,
+  ShoppingCart,
+  Check,
+} from "lucide-react";
 import { productsData } from "./data";
 import { useAuth } from "./AuthContext";
 import Modal from "./Modal";
@@ -18,6 +24,9 @@ const ProductDetailPage = () => {
     wishlistItems,
     addToWishlist,
     removeFromWishlist,
+    cartItems,
+    addToCart,
+    removeFromCart,
   } = useAuth();
   const [snackbar, setSnackbar] = useState(false);
   const currentProduct = productsData[category]?.find(
@@ -35,6 +44,12 @@ const ProductDetailPage = () => {
   );
 
   const isInwishlist = wishlistItems.some(
+    (item) =>
+      item.id === currentProduct.productId &&
+      item.category === currentProduct.category
+  );
+
+  const isIncart = cartItems.some(
     (item) =>
       item.id === currentProduct.productId &&
       item.category === currentProduct.category
@@ -70,17 +85,41 @@ const ProductDetailPage = () => {
     }
   };
 
-  const handleCompareClick = (e) => {
+  const handleCartClick = (e) => {
     e.preventDefault();
-    if (isInCompare) {
-      removeFromCompare(currentProduct.productId, currentProduct.category);
+    if (isIncart) {
+      removeFromCart(currentProduct.productId, currentProduct.category);
     } else {
-      addToCompare({
+      addToCart({
         id: currentProduct.productId,
         name: currentProduct.name,
         image: currentProduct.image,
         category: currentProduct.category,
+        price: "99",
       });
+    }
+  };
+
+  const handleCompareClick = (e) => {
+    e.preventDefault();
+    setInfo("");
+    if (isInCompare) {
+      removeFromCompare(currentProduct.productId, currentProduct.category);
+    } else {
+      if (compareItems.length == 0 || compareItems[0].category == category) {
+        addToCompare({
+          id: currentProduct.productId,
+          name: currentProduct.name,
+          image: currentProduct.image,
+          category: currentProduct.category,
+        });
+        if (compareItems.length == 1) {
+          navigate("/compare");
+        }
+      } else {
+        setInfo("Please select items from the same category to compare.");
+        setSnackbar(true);
+      }
     }
   };
 
@@ -89,6 +128,7 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
+  const navigate = useNavigate();
 
   const getDoc = async () => {
     setLoading(true);
@@ -145,6 +185,9 @@ const ProductDetailPage = () => {
     if (snackbar) {
       const timer = setTimeout(() => {
         setSnackbar(false);
+        if (info == "Please select items from the same category to compare.") {
+          navigate(`/products/${compareItems[0].category}`);
+        }
       }, 3000);
 
       return () => clearTimeout(timer);
@@ -247,20 +290,61 @@ const ProductDetailPage = () => {
           </div>
 
           <div className="flex flex-wrap gap-4 pt-4">
+            {/* Compare Button - Analytical Action */}
             <button
               onClick={handleCompareClick}
-              className="flex items-center gap-2 px-4 py-2 border border-ui-gray rounded-md hover:bg-bg-light transition-colors"
+              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
+                isInCompare
+                  ? "bg-brand-100 border border-brand-400 text-brand-600"
+                  : "border border-ui-gray hover:bg-bg-light text-text-primary"
+              }`}
             >
-              <BarChart2 size={14} />{" "}
-              {isInCompare ? "Remove from Compare" : "Add to Compare"}
+              <BarChart2
+                size={16}
+                className={
+                  isInCompare ? "text-brand-600" : "text-text-secondary"
+                }
+              />
+              {isInCompare ? "Remove" : "Compare"}
             </button>
+
+            {/* Wishlist Button - Emotional Action */}
             <button
               onClick={handleWishlistClick}
-              className={`flex items-center gap-1 ${
-                isInwishlist ? "bg-brand-dark" : "bg-brand"
-              } text-text-inverted px-3 py-2 rounded-md text-sm hover:bg-brand-dark transition-colors`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
+                isInwishlist
+                  ? "bg-ui-red-light border border-ui-red-medium text-ui-red-darker"
+                  : "border border-ui-gray hover:bg-ui-red-light/50 text-text-primary"
+              }`}
             >
-              <Heart size={14} /> Wishlist
+              <Heart
+                size={16}
+                className={
+                  isInwishlist
+                    ? "text-ui-red-darker fill-current"
+                    : "text-text-secondary"
+                }
+              />
+              {isInwishlist ? "Saved" : "Save"}
+            </button>
+
+            {/* Cart Button - Primary Action */}
+            <button
+              onClick={handleCartClick}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm text-text-inverted transition-colors ${
+                isIncart
+                  ? "bg-brand-cart hover:bg-brand-cart/90"
+                  : "bg-brand-400 hover:bg-brand-600"
+              }`}
+            >
+              <ShoppingCart size={16} />
+              {isIncart ? (
+                <span className="flex items-center gap-1">
+                  <Check size={14} /> Added
+                </span>
+              ) : (
+                "Add to Cart"
+              )}
             </button>
           </div>
         </div>

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { Plus, ChevronLeft } from "lucide-react";
+import { Plus, ChevronLeft, X } from "lucide-react";
 import { useAuth } from "./AuthContext";
 import { useEffect } from "react";
 
 const ComparePage = () => {
-  const { compareItems } = useAuth();
+  const { compareItems, removeFromCompare } = useAuth();
   useEffect(() => {
     if (compareItems.length == 2) {
       compareItems[0].nutrition = {
@@ -64,7 +64,7 @@ const ComparePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product 1 Slot */}
         <div
-          className={`rounded-lg p-6 min-h-[400px] flex flex-col ${
+          className={`relative rounded-lg p-6 min-h-[400px] flex flex-col ${
             compareItems[0]
               ? "border border-ui-gray"
               : "border-2 border-dashed border-ui-gray"
@@ -72,18 +72,37 @@ const ComparePage = () => {
         >
           {compareItems[0] ? (
             <>
-              <div className="h-64 mb-4 bg-bg-light flex items-center justify-center">
-                <img
-                  src={compareItems[0].image}
-                  alt={compareItems[0].name}
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <h2 className="text-xl font-bold mb-2 text-text-primary">
-                  {compareItems[0].name}
-                </h2>
-              </div>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  removeFromCompare(
+                    compareItems[0].id,
+                    compareItems[0].category
+                  );
+                }}
+                className="absolute top-1 right-1 p-1 rounded-full hover:bg-ui-gray/20 transition-colors"
+                aria-label="Remove product from comparison"
+              >
+                <X size={18} className="text-ui-success-dark" />
+              </button>
+              <Link
+                to={`/products/${compareItems[0].category}/${compareItems[0].id}`}
+              >
+                {" "}
+                <div className="h-64 mb-4 bg-bg-light flex items-center justify-center">
+                  <img
+                    src={compareItems[0].image}
+                    alt={compareItems[0].name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <div className="flex flex-col justify-center items-center">
+                  <h2 className="text-xl font-bold mb-2 text-text-primary">
+                    {compareItems[0].name}
+                  </h2>
+                </div>
+              </Link>
             </>
           ) : (
             <Link
@@ -113,7 +132,7 @@ const ComparePage = () => {
 
         {/* Product 2 Slot */}
         <div
-          className={`rounded-lg p-6 min-h-[400px] flex flex-col ${
+          className={`relative rounded-lg p-6 min-h-[400px] flex flex-col ${
             compareItems[1]
               ? "border border-ui-gray"
               : "border-2 border-dashed border-ui-gray"
@@ -121,18 +140,36 @@ const ComparePage = () => {
         >
           {compareItems[1] ? (
             <>
-              <div className="h-64 mb-4 bg-bg-light flex items-center justify-center">
-                <img
-                  src={compareItems[1].image}
-                  alt={compareItems[1].name}
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <h2 className="text-xl font-bold mb-2 text-text-primary">
-                  {compareItems[1].name}
-                </h2>
-              </div>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  removeFromCompare(
+                    compareItems[1].id,
+                    compareItems[1].category
+                  );
+                }}
+                className="absolute top-1 right-1 p-1 rounded-full hover:bg-ui-gray/20 transition-colors"
+                aria-label="Remove product from comparison"
+              >
+                <X size={18} className="text-ui-success-dark" />
+              </button>
+              <Link
+                to={`/products/${compareItems[1].category}/${compareItems[1].id}`}
+              >
+                <div className="h-64 mb-4 bg-bg-light flex items-center justify-center">
+                  <img
+                    src={compareItems[1].image}
+                    alt={compareItems[1].name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <div className="flex flex-col justify-center items-center">
+                  <h2 className="text-xl font-bold mb-2 text-text-primary">
+                    {compareItems[1].name}
+                  </h2>
+                </div>
+              </Link>
             </>
           ) : (
             <Link
